@@ -86,7 +86,7 @@ function preRepre1List(){
             for(var i=1; i < Object.keys(json).length; i++) {
                 var accionista = json[i];
                 //----------------- Para una tabla -----------------------
-                str="<tr><td>"+accionista.nombre+"</td><td>"+accionista.cedula+"</td>";
+                str="<tr><td>"+accionista.nombre+"</td><td>"+accionista.cedula+"</td><td>"+accionista.acciones+"</td>";
                 str+="<td><button class='btn btn-success btn-sm' data-toggle='tooltip' onclick='preRepre2List(\""+accionista.cedula+"\",\""+accionista.nombre+"\")'";
                 str+="data-placement='top' title='Seleccionar' id='actualizarUsuario'><i class='material-icons'>";
                 str+='check_circle_outline</i></button></td></tr>';
@@ -124,7 +124,7 @@ function preRepre2List(cedula,nombre){
             for(var i=1; i < Object.keys(json).length; i++) {
                 var accionista = json[i];
                 //----------------- Para una tabla -----------------------
-                str="<tr><td>"+accionista.nombre+"</td><td>"+accionista.cedula+"</td>";
+                str="<tr><td>"+accionista.nombre+"</td><td>"+accionista.cedula+"</td><td>"+accionista.acciones+"</td>";
                 str+="<td><button class='btn btn-success btn-sm' data-toggle='tooltip' onclick='preRepresentantes(\""+accionista.cedula+"\",\""+accionista.nombre+"\")'";
                 str+="data-placement='top' title='Seleccionar' id='actualizarUsuario'><i class='material-icons'>";
                 str+='check_circle_outline</i></button></td></tr>';
