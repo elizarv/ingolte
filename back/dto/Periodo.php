@@ -12,7 +12,7 @@ class Periodo {
 
   private $fecha;
   private $cedula;
-  private $esrepresentante;
+  private $num_radicado;
   private $representante_cc;
 
     /**
@@ -54,16 +54,16 @@ class Periodo {
      * Devuelve el valor correspondiente a esrepresentante
      * @return esrepresentante
      */
-  public function getEsrepresentante(){
-      return $this->esrepresentante;
+  public function getnumradicado(){
+      return $this->num_radicado;
   }
 
     /**
      * Modifica el valor correspondiente a esrepresentante
      * @param esrepresentante
      */
-  public function setEsrepresentante($esrepresentante){
-      $this->esrepresentante = $esrepresentante;
+  public function setnumradicado($num){
+      $this->num_radicado = $num;
   }
     /**
      * Devuelve el valor correspondiente a representante_cc

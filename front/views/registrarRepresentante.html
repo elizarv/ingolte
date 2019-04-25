@@ -1,14 +1,32 @@
 <section class="tables">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                   <div class="card">
-                    <div class="card-body">                                         
+                    <div class="card-header d-flex align-items-center">
+                      <div class="col-lg-10">
+                      <h3 class="h4">Datos</h3>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="col-lg-10" id="datos" name = "datos">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                   <div class="card-header d-flex align-items-center">
+                      <h3 class="h4">Registrar Poder</h3>
+                    </div>
+                    <div class="card-body">
                       <form id="registrarRepresentante" action="javascript:preRepresentanteInsert('registrarRepresentante')" method="post">
-                        <div id="datos" name="datos"></div>
-                        
+                        <div class="col-lg-10" id="datos2" name = "datos2">
+                      </div>
                         <div class="form-group">
-                          <input type="submit" value="Registrar" class="btn btn-primary">
+                          <label class="form-control-label">Número de radicado</label>
+                          <input name="num_radicado" id="num_radicado" type="text" placeholder="Ingrese el número de radicado" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                          <input type="submit" value="Buscar" class="btn btn-primary">
                         </div>
                       </form>
                     </div>
