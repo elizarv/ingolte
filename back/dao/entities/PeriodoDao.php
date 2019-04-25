@@ -41,8 +41,14 @@ private $cn;
           if($rta1[0]['suma'] + $rta2[0]['acciones'] > 250){
             return "Error";
           }
-          $sql= "INSERT INTO `periodo`(`fecha`,`cedula`, `representante_cc`)"
-          ."VALUES ('$fecha','$cedula','$representante_cc')";
+          $sql = "SELECT cedula FROM periodo WHERE cedula = '$cedula' AND fecha = '$fecha'";
+          $rta3 = $this->ejecutarConsulta($sql);
+          if($rta3[0]['cedula']!=""){
+            $sql = "UPDATE periodo SET representante_cc = '$representante_cc' WHERE cedula = '$cedula' AND fecha = '$fecha'";
+          }else{
+            $sql= "INSERT INTO `periodo`(`fecha`,`cedula`, `representante_cc`)"
+            ."VALUES ('$fecha','$cedula','$representante_cc')";            
+          }
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');

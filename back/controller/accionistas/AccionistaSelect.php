@@ -20,7 +20,7 @@ $rta="";
 
 
 
-if($rta!=""){
+if($Accionista->getnombre()!=""){
 	$rta = substr($rta, 0, -1);
 	$msg="{\"msg\":\"exito\"}";
 }else{
