@@ -61,7 +61,29 @@ private $cn;
           $accionistas->setAcciones($data[$i]['acciones']);
 
           }
-      return $accionistas;      } catch (SQLException $e) {
+      return $accionistas;     
+       } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+
+  public function select2($accionistas){
+      $cedula=$accionistas->getCedula();
+
+      try {
+          $sql= "SELECT `cedula`, `nombre`, `acciones`"
+          ."FROM `accionistas`"
+          ."WHERE `cedula`='$cedula'";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+          $accionistas->setCedula($data[$i]['cedula']);
+          $accionistas->setNombre($data[$i]['nombre']);
+          $accionistas->setAcciones($data[$i]['acciones']);
+
+          }
+      return $accionistas;     
+       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
       return null;
       }

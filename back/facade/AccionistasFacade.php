@@ -66,6 +66,17 @@ class AccionistasFacade {
      return $result;
   }
 
+  public static function select2($cedula){
+      $accionistas = new Accionistas();
+      $accionistas->setCedula($cedula); 
+
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $accionistasDao =$FactoryDao->getaccionistasDao(self::getDataBaseDefault());
+     $result = $accionistasDao->select2($accionistas);
+     $accionistasDao->close();
+     return $result;
+  }
+
   /**
    * Modifica los atributos de un objeto Accionistas  ya existente en base de datos.
    * Puede recibir NullPointerException desde los métodos del Dao
