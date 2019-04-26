@@ -150,15 +150,17 @@ function preRepresentantes(cedula,nombre){
 }
 
 function postRepresentantes(){
+    alert(nombre_rep);
     var str = '<h4>Representante:</h4>';
     str += '<h5 class="h5">Nombre: '+nombre_rep+'</h5>';
     str += '<h5 class="h5">CC: '+cedula_rep+'</h5><br>';
     str +='<h4>Accionista a representar:</h4>'
     str += '<h5 class="h5">Nombre: '+nombre_acc+'</h5>';
     str += '<h5 class="h5">CC: '+cedula_acc+'</h5><br>';
-    str += '<input type="hidden" id="cc_rep" name="cc_rep" value="'+cedula_rep+'">';
-    str += '<input type="hidden" id="cc_acc"  name="cc_acc" value="'+cedula_acc+'">';
     document.getElementById("datos").innerHTML = str;
+    str = '<input type="hidden" id="cc_rep" name="cc_rep" value="'+cedula_rep+'">';
+    str += '<input type="hidden" id="cc_acc"  name="cc_acc" value="'+cedula_acc+'">';
+    document.getElementById("datos2").innerHTML = str;
 }
 
 
@@ -299,7 +301,7 @@ function postPeriodoList(result,state){
             for(var i=1; i < Object.keys(json).length; i++) {
                 var accionista = json[i];
                 //----------------- Para una tabla -----------------------
-                str="<tr><td>"+accionista.nombre+"</td><td>"+accionista.cedula+"</td><td>"+accionista.repre+"</td>";
+                str="<tr><td>"+accionista.repre+"</td><td>"+accionista.cedula+"</td><td>"+accionista.nombre+"</td>";
                 str+="<td>"+accionista.ccrepre+"</td><td>"+accionista.num+"</td></tr>";
                 document.getElementById("AccionistaList").innerHTML+=str;
             }
@@ -323,9 +325,9 @@ function preSelectAccionista(idForm){
          if(json[0].msg=="exito"){
                 var accionista = json[1];
                 //----------------- Para una tabla -----------------------
-                cedula_rep = accionista.cedula;
-                nombre_rep = accionista.nombre;
-                cargarSelectAccionista2();
+                //cedula_rep = accionista.cedula;
+                //nombre_rep = accionista.nombre;
+                cargarSelectAccionista2(accionista.cedula, accionista.nombre);
          }else{
                swal("El representante no se encuentra registrado!\nPor favor registrelo.", {
                    icon: "error",
@@ -337,12 +339,14 @@ function preSelectAccionista(idForm){
      }
 }
 
-function cargarSelectAccionista2(){
+function cargarSelectAccionista2(cedula, nombre){
     cargaContenido('remp','front/views/selectAccionista2.html');
     var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
     str+='<li class="breadcrumb-item">Registrar Poder</li>';
     document.getElementById("breadc").innerHTML=str;
     document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
+    cedula_rep = cedula;
+    nombre_rep = nombre;
     enviar("",'',cargarDatosRep);
 }
 
@@ -369,10 +373,10 @@ function preSelectAccionista2(idForm){
          var json=JSON.parse(result);
          if(json[0].msg=="exito"){
                 var accionista = json[1];
-                cedula_acc = accionista.cedula;
-                nombre_acc = accionista.nombre;
-                acciones_acc = accionista.acciones;
-                cargarSelectAccionistaFin();
+                //cedula_acc = accionista.cedula;
+                //nombre_acc = accionista.nombre;
+                //acciones_acc = accionista.acciones;
+                cargarSelectAccionistaFin(accionista.cedula, accionista.nombre, accionista.acciones);
          }else{
                swal("El accionista no se encuentra registrado!", {
                    icon: "error",
@@ -384,12 +388,15 @@ function preSelectAccionista2(idForm){
      }
 }
 
-function cargarSelectAccionistaFin(){
+function cargarSelectAccionistaFin(cedula, nombre, acciones){
     cargaContenido('remp','front/views/registrarRepresentante.html');
     var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
     str+='<li class="breadcrumb-item">Registrar Poder</li>';
     document.getElementById("breadc").innerHTML=str;
     document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
+    cedula_acc = cedula;
+    nombre_acc = nombre;
+    acciones_acc = acciones;
     enviar("",'',cargarDatosFin);
 }
 
