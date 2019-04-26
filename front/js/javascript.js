@@ -288,6 +288,26 @@ function cargarSelectAccionista(){
     str+='<li class="breadcrumb-item">Registrar Poder</li>';
     document.getElementById("breadc").innerHTML=str;
     document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
+    enviar('','back/controller/periodo/PeriodoList.php',postPeriodoList);
+}
+
+function postPeriodoList(result,state){
+     //Maneje aquí la respuesta del servidor.
+     if(state=="success"){
+        var json=JSON.parse(result);
+         if(json[0].msg=="exito"){
+            for(var i=1; i < Object.keys(json).length; i++) {
+                var accionista = json[i];
+                //----------------- Para una tabla -----------------------
+                str="<tr><td>"+accionista.nombre+"</td><td>"+accionista.cedula+"</td><td>"+accionista.repre+"</td>";
+                str+="<td>"+accionista.ccrepre+"</td><td>"+accionista.num+"</td></tr>";
+                document.getElementById("AccionistaList").innerHTML+=str;
+            }
+         }
+         function_datatable();
+     }else{
+         alert("Hubo un errror interno ( u.u)\n"+result);
+     }
 }
 
 function preSelectAccionista(idForm){

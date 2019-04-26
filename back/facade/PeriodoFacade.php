@@ -48,4 +48,14 @@ class PeriodoFacade {
      $PeriodoDao->close();
      return $rtn;
   }
+
+  public static function listAll(){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $periodoDao =$FactoryDao->getperiodoDao(self::getDataBaseDefault());
+     $result = $periodoDao->listAll();
+     $periodoDao->close();
+     return $result;
+  }
+
+
 }

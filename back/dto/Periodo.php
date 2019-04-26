@@ -14,6 +14,9 @@ class Periodo {
   private $cedula;
   private $num_radicado;
   private $representante_cc;
+  private $cedula2;
+  private $nombre;
+  private $nombre2;
 
     /**
      * Constructor de Periodo
@@ -81,6 +84,29 @@ class Periodo {
       $this->representante_cc = $representante_cc;
   }
 
+  public function getnombre(){
+      return $this->nombre;
+  }
+
+  public function setnombre($n){
+      $this->nombre = $n;
+  }
+
+  public function getnombre2(){
+      return $this->nombre2;
+  }
+
+  public function setnombre2($n){
+      $this->nombre2 = $n;
+  }
+
+  public function getcedula2(){
+      return $this->cedula2;
+  }
+
+  public function setcedula2($n){
+      $this->cedula2 = $n;
+  }
 
 }
 //That´s all folks!

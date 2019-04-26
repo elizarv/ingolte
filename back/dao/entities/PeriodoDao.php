@@ -57,6 +57,30 @@ private $cn;
   }
 
 
+
+    public function listAll(){
+      $lista = array();
+      try {
+          $fecha = date("Y");
+          $sql ="SELECT a.nombre, a.cedula as c1, p.num_radicado, p.representante_cc as c2, (select a2.nombre from accionistas a2, periodo p2 where a2.cedula = p2.representante_cc and p2.cedula = c1)as n2 from accionistas a, periodo p where a.cedula = p.cedula AND fecha = '$fecha'";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $periodo= new Periodo();
+          $periodo->setCedula($data[$i]['c1']);
+          $periodo->setNombre($data[$i]['n2']);
+          $periodo->setCedula2($data[$i]['c2']);
+          $periodo->setNombre2($data[$i]['nombre']);
+          $periodo->setnumradicado($data[$i]['num_radicado']);
+          array_push($lista,$periodo);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+    }
+
+
       public function insertarConsulta($sql){
           $this->cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $sentencia=$this->cn->prepare($sql);

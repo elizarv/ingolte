@@ -11,13 +11,22 @@ include_once realpath('../../facade/PeriodoFacade.php');
 $list=PeriodoFacade::listAll();
 $rta="";
 foreach ($list as $obj => $Periodo) {	
-	$rta.="<tr>\n";
-	$rta.="<td>".$Periodo->getfecha()."</td>\n";
-	$rta.="<td>".$Periodo->getcedula()->getcedula()."</td>\n";
-	$rta.="<td>".$Periodo->getesrepresentante()."</td>\n";
-	$rta.="<td>".$Periodo->getrepresentante_cc()."</td>\n";
-	$rta.="</tr>\n";
+	$rta.="{
+ 	    \"cedula\":\"{$Periodo->getcedula()}\",
+	    \"ccrepre\":\"{$Periodo->getcedula2()}\",
+	    \"nombre\":\"{$Periodo->getnombre()}\",
+	    \"repre\":\"{$Periodo->getnombre2()}\",
+	    \"num\":\"{$Periodo->getnumradicado()}\"
+	},";
 }
-echo $rta;
+if($rta!=""){
+	$rta = substr($rta, 0, -1);
+	$msg="{\"msg\":\"exito\"}";
+}else{
+	$msg="{\"msg\":\"MANEJO DE EXCEPCIONES AQUÍ\"}";
+	$rta="{\"result\":\"No se encontraron registros.\"}";	
+}
+
+echo "[{$msg},{$rta}]";
 
 //That´s all folks!
