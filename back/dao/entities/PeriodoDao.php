@@ -9,6 +9,8 @@
 
 include_once realpath('../../dao/interfaz/IPeriodoDao.php');
 include_once realpath('../../dto/Periodo.php');
+include_once realpath('../../dto/Poder.php');
+include_once realpath('../../dto/Accionistas.php');
 
 class PeriodoDao implements IPeriodoDao{
 
@@ -72,6 +74,38 @@ private $cn;
           $periodo->setNombre2($data[$i]['nombre']);
           $periodo->setnumradicado($data[$i]['num_radicado']);
           array_push($lista,$periodo);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+    }
+
+
+    public function listPoderes($fecha){
+      $lista = array();
+      try {
+          $sql ="SELECT nombre, cedula, acciones FROM accionistas WHERE cedula IN (SELECT representante_cc FROM periodo WHERE fecha = '$fecha')";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $poder= new Poder();
+              $repre = $data[$i]['cedula'];
+              $poder->setCedula($data[$i]['cedula']);
+              $poder->setNombre($data[$i]['nombre']);
+              $poder->setacciones($data[$i]['acciones']);
+              $sql2 = "SELECT a.nombre, a.cedula, a.acciones FROM accionistas a, periodo p WHERE p.cedula = a.cedula AND p.representante_cc = '$repre' AND p.fecha = '$fecha'";
+              $data2 = $this->ejecutarConsulta($sql2);
+              $lista2 = array();
+              for($j=0; $j < count($data2); $j++){
+                  $poderdante = new Accionistas();
+                  $poderdante->setCedula($data2[$j]['cedula']);
+                  $poderdante->setNombre($data2[$j]['nombre']);
+                  $poderdante->setacciones($data2[$j]['acciones']);
+                  array_push($lista2,$poderdante);
+              }
+              $poder->setpoderdantes($lista2);
+              array_push($lista,$poder);
           }
       return $lista;
       } catch (SQLException $e) {

@@ -57,5 +57,13 @@ class PeriodoFacade {
      return $result;
   }
 
+  public static function listPoderes($fecha){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $periodoDao =$FactoryDao->getperiodoDao(self::getDataBaseDefault());
+     $result = $periodoDao->listPoderes($fecha);
+     $periodoDao->close();
+     return $result;
+  }
+
 
 }
