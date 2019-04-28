@@ -349,14 +349,29 @@ function cargarConsultarPoderes(){
 function preConsultarPoderes(idForm){
     if(validarForm(idForm)){
         var formData = $('#'+idForm).serialize();
-        enviar(formData,'back/controller/fpdf/reportePoderes.php',postConsultarPoderes);
+        enviar(formData,'back/controller/Periodo/PeriodoSelect.php',selectPeriodo);
     }
 }
 
-function postConsultarPoderes(result,state){
-    alert(result);
+function selectPeriodo(result,state){
     if(state=="success"){
-         location.replace("back/controller/fpdf/pdf/reportePoderes.pdf");
+        var json=JSON.parse(result);
+        if(json[0].msg == "Error"){
+            swal("No se encuentran poderes registrados en esa fecha", {
+                           icon: "error",
+                         });                    
+        }else{
+            formData={fecha:json[1].fecha};
+            enviar(formData,'back/controller/fpdf/reportePoderes.php',postConsultarPoderes);
+        }
+     }else{
+         alert("Hubo un errror interno ( u.u)\n"+result);
+     }
+}
+
+function postConsultarPoderes(result,state){
+    if(state=="success"){
+        location.replace("back/controller/fpdf/pdf/reportePoderes.pdf");   
      }else{
          alert("Hubo un errror interno ( u.u)\n"+result);
      }

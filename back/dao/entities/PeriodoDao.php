@@ -59,6 +59,22 @@ private $cn;
   }
 
 
+ public function selectByFecha($periodo){
+      $fecha=$periodo->getfecha();
+
+      try {
+          $sql= "SELECT cedula FROM periodo WHERE fecha = '$fecha'";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+          $periodo->setCedula($data[$i]['cedula']);
+          }
+      return $periodo;     
+       } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+
 
     public function listAll(){
       $lista = array();

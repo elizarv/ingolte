@@ -1,8 +1,10 @@
 <?php
-require('pdfClass.php');
+
 include_once realpath('../../facade/PeriodoFacade.php');
 $fecha = $_POST['fecha'];
 $list=PeriodoFacade::listPoderes($fecha);
+
+require('pdfClass.php');
 $pdf = new PDF();
 $pdf->fecha($fecha);
 $pdf->AliasNbPages();
@@ -44,4 +46,5 @@ foreach ($list as $obj => $poder) {
 	$y1 = $pdf->GetY();
 }
 $pdf->Output("pdf/reportePoderes.pdf", "F");
+
 ?>

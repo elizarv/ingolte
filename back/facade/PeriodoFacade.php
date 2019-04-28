@@ -49,6 +49,17 @@ class PeriodoFacade {
      return $rtn;
   }
 
+   public static function selectByFecha($fecha){
+      $periodo = new Periodo();
+      $periodo->setfecha($fecha); 
+
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $periodoDao =$FactoryDao->getPeriodoDao(self::getDataBaseDefault());
+     $result = $periodoDao->selectByFecha($periodo);
+     $periodoDao->close();
+     return $result;
+  }
+
   public static function listAll(){
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $periodoDao =$FactoryDao->getperiodoDao(self::getDataBaseDefault());
