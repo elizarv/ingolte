@@ -49,8 +49,8 @@ private $cn;
           if(sizeof($rta3)!=0){
             if($rta3[0]['num_radicado']<$num_radicado)$sql = "UPDATE periodo SET representante_cc = '$representante_cc', num_radicado = '$num_radicado' WHERE cedula = '$cedula' AND fecha = '$fecha'";
           }else{
-            $sql= "INSERT INTO `periodo`(`fecha`,`cedula`, `representante_cc`)"
-            ."VALUES ('$fecha','$cedula','$representante_cc')";            
+            $sql= "INSERT INTO `periodo`(`fecha`,`cedula`, `representante_cc`, num_radicado)"
+            ."VALUES ('$fecha','$cedula','$representante_cc','$num_radicado')";            
           }
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
