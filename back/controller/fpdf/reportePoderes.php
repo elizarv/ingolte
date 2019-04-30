@@ -13,6 +13,8 @@ $pdf->SetFont('Arial','',8);
 $x1 = $pdf->GetX();
 $y1 = $pdf->GetY();
 $x2 = $x1+180;
+$tot_rep = 0;
+$tot_acc = 0;
 foreach ($list as $obj => $poder) {	
 	$y = $pdf->getY();
 	$x = $pdf->getX()+60;
@@ -24,7 +26,7 @@ foreach ($list as $obj => $poder) {
 	$y = $pdf->GetY();
 	$total = 0;
 	foreach($poder->getpoderdantes() as $obj => $accionista){
-		 $accionistas.= $accionista->getnombre();
+		 $accionistas.= utf8_decode($accionista->getnombre());
 		 $accionistas.=" (".$accionista->getacciones().")\n" ;
 		 $total += $accionista->getacciones();
 	}
@@ -44,7 +46,12 @@ foreach ($list as $obj => $poder) {
 	$pdf->line($x1+150, $y1, $x1+150, $pdf->GetY());
 	$pdf->line($x2, $y1, $x2, $pdf->GetY());
 	$y1 = $pdf->GetY();
+	$tot_rep += $total;
+	$tot_acc += $total + $poder->getacciones();
 }
+$pdf->SetX($x2-60);
+$pdf->Cell(30, 10, $tot_rep , 1, 0,'C', 0);
+$pdf->Cell(30, 10, $tot_acc , 1, 1,'C', 0);
 $pdf->Output("pdf/reportePoderes.pdf", "F");
 
 ?>
