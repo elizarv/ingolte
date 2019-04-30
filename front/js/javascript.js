@@ -252,10 +252,9 @@ function preSelectAccionista(idForm){
          var json=JSON.parse(result);
          if(json[0].msg=="exito"){
                 var accionista = json[1];
-                //----------------- Para una tabla -----------------------
-                //cedula_rep = accionista.cedula;
-                //nombre_rep = accionista.nombre;
-                cargarSelectAccionista2(accionista.cedula, accionista.nombre);
+                cedula_rep = accionista.cedula;
+                nombre_rep = accionista.nombre;
+                enviar('','',cargarSelectAccionista2);
          }else{
                swal("El representante no se encuentra registrado!\nPor favor registrelo.", {
                    icon: "error",
@@ -267,15 +266,13 @@ function preSelectAccionista(idForm){
      }
 }
 
-function cargarSelectAccionista2(cedula, nombre){
-    cedula_rep = cedula;
-    nombre_rep = nombre;
+function cargarSelectAccionista2(){
     cargaContenido('remp','front/views/selectAccionista2.html');
     var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
     str+='<li class="breadcrumb-item">Registrar Poder</li>';
     document.getElementById("breadc").innerHTML=str;
     document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
-    enviar("",'',cargarDatosRep);
+    enviar('','',cargarDatosRep);
 }
 
 function cargarDatosRep(){
@@ -298,7 +295,10 @@ function preSelectAccionista2(idForm){
          var json=JSON.parse(result);
          if(json[0].msg=="exito"){
                 var accionista = json[1];
-                cargarSelectAccionistaFin(accionista.cedula, accionista.nombre, accionista.acciones);
+                cedula_acc = accionista.cedula;
+                nombre_acc = accionista.nombre;
+                acciones_acc = accionista.acciones;
+                enviar('','',cargarSelectAccionistaFin);
          }else{
                swal("El accionista no se encuentra registrado!", {
                    icon: "error",
@@ -310,10 +310,7 @@ function preSelectAccionista2(idForm){
      }
 }
 
-function cargarSelectAccionistaFin(cedula, nombre, acciones){
-    cedula_acc = cedula;
-    nombre_acc = nombre;
-    acciones_acc = acciones;
+function cargarSelectAccionistaFin(){
     cargaContenido('remp','front/views/registrarRepresentante.html');
     var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
     str+='<li class="breadcrumb-item">Registrar Poder</li>';
