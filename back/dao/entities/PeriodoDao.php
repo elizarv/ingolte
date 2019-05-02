@@ -59,6 +59,42 @@ private $cn;
   }
 
 
+
+public function update($periodo){
+      $cedula=$periodo->getCedula();
+      $fecha=$periodo->getFecha();
+      $valido=$periodo->getvalido();
+      try {
+          $sql= "UPDATE periodo SET `valido`='$valido' WHERE `cedula`='$cedula' AND `fecha`='$fecha' ;";
+         return $this->insertarConsulta($sql);
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      }
+  }
+
+
+  public function select($periodo){
+      $cedula=$periodo->getCedula();
+$fecha=$periodo->getFecha();
+
+      try {
+          $sql= "SELECT `cedula`, `fecha`"
+          ."FROM `periodo`"
+          ."WHERE `cedula`='$cedula' AND`fecha`='$fecha'";
+          $data = $this->ejecutarConsulta($sql);
+          $periodo = new Periodo();
+          for ($i=0; $i < count($data) ; $i++) {
+          $periodo->setCedula($data[$i]['cedula']);
+          $periodo->setFecha($data[$i]['fecha']);
+
+          }
+      return $periodo;   
+         } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+
  public function selectByFecha($periodo){
       $fecha=$periodo->getfecha();
 

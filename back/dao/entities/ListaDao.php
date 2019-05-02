@@ -55,6 +55,7 @@ $numero=$lista->getNumero();
           ."FROM `lista`"
           ."WHERE `fecha`='$fecha' AND`numero`='$numero'";
           $data = $this->ejecutarConsulta($sql);
+          $lista = new Lista();
           for ($i=0; $i < count($data) ; $i++) {
           $lista->setFecha($data[$i]['fecha']);
           $lista->setNumero($data[$i]['numero']);

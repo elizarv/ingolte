@@ -107,9 +107,9 @@ function postRepresentanteInsert(result, state){
 function cargarRegistroLista(){
     cargaContenido('remp','front/views/registrarLista.html');
     var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
-    str+='<li class="breadcrumb-item">Registrar Accionista</li>';
+    str+='<li class="breadcrumb-item">Registrar Candidato</li>';
     document.getElementById("breadc").innerHTML=str;
-    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Agregar Lista</h2>';
+    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Agregar Candidato de lista de votación</h2>';
 }
 
 function preListaInsert(idForm){
@@ -156,7 +156,9 @@ function preBuscarDatosVotante(idForm){
          var json=JSON.parse(result);
          if(json[0].msg=="exito"){
                 var accionista = json[1];
-                cargarDatosVotante(accionista.cedula, accionista.nombre);
+                cedula_rep = accionista.cedula;
+                nombre_rep = accionista.nombre;
+                enviar('','',cargarDatosVotante);
          }else{
                swal("El representante no se encuentra registrado!\nPor favor registrelo.", {
                    icon: "error",
@@ -169,8 +171,6 @@ function preBuscarDatosVotante(idForm){
 }
 
 function cargarDatosVotante(cedula, nombre){
-    cedula_rep = cedula;
-    nombre_rep = nombre;
     cargaContenido('remp','front/views/registrarVotantes2.html');
     var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
     str+='<li class="breadcrumb-item">Registrar Votante</li>';
@@ -359,7 +359,7 @@ function selectPeriodo(result,state){
                          });                    
         }else{
             formData={fecha:json[1].fecha};
-            enviar(formData,'back/controller/fpdf/reportePoderes.php',postConsultarPoderes);
+            enviar(formData,'back/controller/dompdf/reportePoderes.php',postConsultarPoderes);
         }
      }else{
          alert("Hubo un errror interno ( u.u)\n"+result);
@@ -368,7 +368,8 @@ function selectPeriodo(result,state){
 
 function postConsultarPoderes(result,state){
     if(state=="success"){
-        location.replace("back/controller/fpdf/pdf/reportePoderes.pdf");   
+        window.open('back/controller/dompdf/pdfs/reportePoderes.pdf', '_blank');
+        cargarInicio();
      }else{
          alert("Hubo un errror interno ( u.u)\n"+result);
      }

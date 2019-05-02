@@ -49,6 +49,29 @@ class PeriodoFacade {
      return $rtn;
   }
 
+
+  public static function select($cedula, $fecha){
+      $periodo = new Periodo();
+      $periodo->setCedula($cedula); 
+      $periodo->setFecha($fecha); 
+
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $periodoDao =$FactoryDao->getperiodoDao(self::getDataBaseDefault());
+     $result = $periodoDao->select($periodo);
+     $periodoDao->close();
+     return $result;
+  }
+
+  public static function update($cedula, $fecha, $valido){
+      $periodo = self::select($cedula, $fecha);
+      $periodo->setvalido($valido);
+
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $periodoDao =$FactoryDao->getperiodoDao(self::getDataBaseDefault());
+     $periodoDao->update($periodo);
+     $periodoDao->close();
+  }
+
    public static function selectByFecha($fecha){
       $periodo = new Periodo();
       $periodo->setfecha($fecha); 

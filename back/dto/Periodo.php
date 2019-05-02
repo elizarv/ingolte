@@ -17,6 +17,7 @@ class Periodo {
   private $cedula2;
   private $nombre;
   private $nombre2;
+  private $valido;
 
     /**
      * Constructor de Periodo
@@ -107,6 +108,14 @@ class Periodo {
   public function setcedula2($n){
       $this->cedula2 = $n;
   }
+
+  public function getvalido(){
+      return $this->valido;
+  }
+
+  public function setvalido($n){
+      $this->valido = $n;
+  }  
 
 }
 //That´s all folks!

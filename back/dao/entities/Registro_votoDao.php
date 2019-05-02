@@ -73,7 +73,8 @@ $fecha=$registro_voto->getFecha();
           $registro_voto->setVoto1($data[$i]['voto1']);
 
           }
-      return $registro_voto;      } catch (SQLException $e) {
+      return $registro_voto;   
+         } catch (SQLException $e) {
           throw new Exception('Primary key is null');
       return null;
       }
