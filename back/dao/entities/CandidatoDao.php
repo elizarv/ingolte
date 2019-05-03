@@ -32,7 +32,7 @@ private $cn;
       $cedula=$candidato->getCedula();
       $numero=$candidato->getNumero();
       $fecha=$candidato->getFecha();
-      $candidatonumero = $candidato->getcandidatonumero();
+      $candidatonumero = $candidato->getnumerocandidato();
 
       try {
           $sql= "INSERT INTO `candidato`( `nombre`, `cedula`, `numero`, `fecha`, numero_candidato)"
@@ -141,17 +141,17 @@ $fecha=$candidato->getFecha();
   public function listAll(){
       $lista = array();
       try {
-          $sql ="SELECT `nombre`, `cedula`, `numero`, `fecha`"
-          ."FROM `candidato`"
+          $sql ="SELECT `nombre`, `cedula`, `numero`, `fecha`, numero_candidato "
+          ."FROM `candidato` "
           ."WHERE 1";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $candidato= new Candidato();
-          $candidato->setNombre($data[$i]['nombre']);
-          $candidato->setCedula($data[$i]['cedula']);
-          $candidato->setNumero($data[$i]['numero']);
-          $candidato->setFecha($data[$i]['fecha']);
-
+              $candidato->setNombre($data[$i]['nombre']);
+              $candidato->setCedula($data[$i]['cedula']);
+              $candidato->setNumero($data[$i]['numero']);
+              $candidato->setFecha($data[$i]['fecha']);
+              $candidato->setnumerocandidato($data[$i]['numero_candidato']);
           array_push($lista,$candidato);
           }
       return $lista;

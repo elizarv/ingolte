@@ -78,6 +78,23 @@ $fecha=$registro_voto->getFecha();
       }
   }
 
+
+  public function selectByFecha($registro){
+      $fecha=$registro->getfecha();
+
+      try {
+          $sql= "SELECT cedula FROM registro_voto WHERE fecha = '$fecha'";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+          $registro->setCedula($data[$i]['cedula']);
+          }
+      return $registro;     
+       } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+
     /**
      * Modifica un objeto Registro_voto en la base de datos.
      * @param registro_voto objeto con la información a modificar

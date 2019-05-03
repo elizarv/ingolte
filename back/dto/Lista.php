@@ -12,6 +12,7 @@ class Lista {
 
   private $fecha;
   private $numero;
+  
 
     /**
      * Constructor de Lista

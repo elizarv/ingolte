@@ -82,12 +82,12 @@ class Candidato {
       $this->fecha = $fecha;
   }
 
-  public function getcandidatonumero(){
-    return $this->candidatonumero;
+  public function getnumerocandidato(){
+    return $this->numerocandidato;
   }
 
-  public function setcandidatonumero($n){
-    $this->candidatonumero = $n;
+  public function setnumerocandidato($n){
+    $this->numerocandidato = $n;
   }
 
 

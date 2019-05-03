@@ -15,7 +15,8 @@ foreach ($list as $obj => $Candidato) {
  	    \"nombre\":\"{$Candidato->getnombre()}\",
 	    \"cedula\":\"{$Candidato->getcedula()}\",
 	    \"numero\":\"{$Candidato->getnumero()}\",
-	    \"fecha\":\"{$Candidato->getfecha()}\"
+	    \"fecha\":\"{$Candidato->getfecha()}\",
+	    \"numerocandidato\":\"{$Candidato->getnumerocandidato()}\"
 	},";
 }
 

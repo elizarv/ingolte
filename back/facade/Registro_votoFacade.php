@@ -67,6 +67,17 @@ class Registro_votoFacade {
      return $result;
   }
 
+  public static function selectByFecha($fecha){
+      $registro = new Registro_voto();
+      $registro->setfecha($fecha); 
+
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $registroDao =$FactoryDao->getregistro_votoDao(self::getDataBaseDefault());
+     $result = $registroDao->selectByFecha($registro);
+     $registroDao->close();
+     return $result;
+  }
+
   /**
    * Modifica los atributos de un objeto Registro_voto  ya existente en base de datos.
    * Puede recibir NullPointerException desde los métodos del Dao

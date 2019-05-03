@@ -42,6 +42,13 @@ class Otras_votacionesFacade {
      return $rtn;
   }
   
+  public static function listAll(){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $otrasDao =$FactoryDao->getOtras_votacionesDao(self::getDataBaseDefault());
+     $result = $otrasDao->listAll();
+     $otrasDao->close();
+     return $result;
+  }
 
 
 }

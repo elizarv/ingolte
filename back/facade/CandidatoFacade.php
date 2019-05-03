@@ -43,8 +43,7 @@ class CandidatoFacade {
       $candidato->setCedula($cedula); 
       $candidato->setNumero($numero); 
       $candidato->setFecha($fecha); 
-      $candidato->setcandidatonumero($cuenta);
-
+      $candidato->setnumerocandidato($cuenta);
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $candidatoDao =$FactoryDao->getcandidatoDao(self::getDataBaseDefault());
      $rtn = $candidatoDao->insert($candidato);

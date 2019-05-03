@@ -52,6 +52,28 @@ private $cn;
           $sentencia = null;
           return $data;
     }
+
+
+    public function listAll(){
+      $lista = array();
+      try {
+          $sql ="SELECT `fecha`, `nombre`"
+          ."FROM `otras_votaciones`"
+          ."WHERE 1";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $votacion= new Otras_votaciones();
+          $votacion->setFecha($data[$i]['fecha']);
+          $votacion->setnombre($data[$i]['nombre']);
+          array_push($lista,$votacion);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+
     /**
      * Cierra la conexión actual a la base de datos
      */
