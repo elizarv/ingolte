@@ -1,7 +1,7 @@
 //var nombre_rep, cedula_rep, nombre_acc, cedula_acc, acciones_acc;
 
 
-function function_datatable(){
+function function_datatable2(){
     $('#myTable tfoot th').each( function () {
         var title = $(this).text();
         $(this).html( '<input type="text" placeholder="Buscar '+title+'" />' );
@@ -26,7 +26,7 @@ function function_datatable(){
     table.columns().every( function () {
         var that = this;
  
-        $( 'input', this.footer() ).on( 'keyup change', function () {
+        $( 'input',this.footer() ).on( 'keyup change', function () {
             if ( that.search() !== this.value ) {
                 that
                     .search( this.value )
@@ -34,6 +34,26 @@ function function_datatable(){
             }
         } );
     } );
+}
+
+function function_datatable1(){
+    var table = $('#myTable').DataTable(
+                {
+                "language": {
+                    "lengthMenu": "Mostrando _MENU_ resultados por pagina",
+                    "zeroRecords": "No encontrado",
+                    "info": "Mostrando pagina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No disponible",
+                    "infoFiltered": "(filtrado de _MAX_ registros)",
+                    "search": "Buscar: ",
+                    "paginate": {
+                        "first":      "Primero",
+                        "last":       "Ultimo",
+                        "next":       "Siguiente",
+                        "previous":   "Anterior"
+                    }
+                }
+            });
 }
 
 
@@ -254,7 +274,7 @@ function postPeriodoList(result,state){
                 document.getElementById("AccionistaList").innerHTML+=str;
             }
          }
-         function_datatable();
+         function_datatable1();
      }else{
          alert("Hubo un errror interno ( u.u)\n"+result);
      }
@@ -496,7 +516,7 @@ function postConsultaListas(result, state){
                 document.getElementById("listaslist").innerHTML+=str;
             }
          }
-         function_datatable();
+         function_datatable2();
      }else{
          alert("Hubo un errror interno ( u.u)\n"+result);
      }
@@ -522,7 +542,7 @@ function postConsultaOtras(result, state){
                 document.getElementById("listaslist").innerHTML+=str;
             }
          }
-         function_datatable();
+         function_datatable1();
      }else{
          alert("Hubo un errror interno ( u.u)\n"+result);
      }
