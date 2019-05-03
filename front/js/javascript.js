@@ -1,4 +1,4 @@
-var nombre_rep, cedula_rep, nombre_acc, cedula_acc, acciones_acc, fecha;
+//var nombre_rep, cedula_rep, nombre_acc, cedula_acc, acciones_acc;
 
 
 function function_datatable(){
@@ -176,7 +176,9 @@ function preBuscarDatosVotante(idForm){
          var json=JSON.parse(result);
          if(json[0].msg=="exito"){
                 var accionista = json[1];
-                cargarDatosVotante(accionista.cedula, accionista.nombre);
+                document.getElementById("nombre_rep").value=accionista.nombre;
+                document.getElementById("cedula_rep").value=accionista.cedula;
+                cargarDatosVotante();
          }else{
                swal("El representante no se encuentra registrado!\nPor favor registrelo.", {
                    icon: "error",
@@ -188,23 +190,21 @@ function preBuscarDatosVotante(idForm){
      }
 }
 
-function cargarDatosVotante(cedula, nombre){
+function cargarDatosVotante(){
     cargaContenido('remp','front/views/registrarVotantes2.html');
     var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
     str+='<li class="breadcrumb-item">Registrar Votante</li>';
     document.getElementById("breadc").innerHTML=str;
     document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Votante</h2>';
-    nombre_rep = nombre;
-    cedula_rep = cedula;
     enviar('','',postCargarDatosVotante);
 }
 
 
 function postCargarDatosVotante(){
     var str = "";
-    str += '<h5 class="h5">Nombre: '+nombre_rep+'</h5>';
-    str += '<h5 class="h5">CC: '+cedula_rep+'</h5><br>';    
-    str +='<input type="hidden" id="cc" name="cc" value="'+cedula_rep+'">';
+    str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_rep").value+'</h5>';
+    str += '<h5 class="h5">CC: '+document.getElementById("cedula_rep").value+'</h5><br>';    
+    str +='<input type="hidden" id="cc" name="cc" value="'+document.getElementById("cedula_rep").value+'">';
     document.getElementById("datos").innerHTML = str;
 }
 
@@ -272,9 +272,9 @@ function preSelectAccionista(idForm){
          var json=JSON.parse(result);
          if(json[0].msg=="exito"){
                 var accionista = json[1];
-                cedula_rep = accionista.cedula;
-                nombre_rep = accionista.nombre;
-                enviar('','',cargarSelectAccionista2);
+                document.getElementById("nombre_rep").value=accionista.nombre;
+                document.getElementById("cedula_rep").value=accionista.cedula;
+                cargarSelectAccionista2();
          }else{
                swal("El representante no se encuentra registrado!\nPor favor registrelo.", {
                    icon: "error",
@@ -297,8 +297,8 @@ function cargarSelectAccionista2(){
 
 function cargarDatosRep(){
     var str="";
-    str += '<h5 class="h5">Nombre: '+nombre_rep+'</h5>';
-    str += '<h5 class="h5">CC: '+cedula_rep+'</h5><br>';
+    str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_rep").value+'</h5>';
+    str += '<h5 class="h5">CC: '+document.getElementById("cedula_rep").value+'</h5><br>';
     document.getElementById("datos").innerHTML = str;
 }
 
@@ -315,10 +315,10 @@ function preSelectAccionista2(idForm){
          var json=JSON.parse(result);
          if(json[0].msg=="exito"){
                 var accionista = json[1];
-                cedula_acc = accionista.cedula;
-                nombre_acc = accionista.nombre;
-                acciones_acc = accionista.acciones;
-                enviar('','',cargarSelectAccionistaFin);
+                document.getElementById("cedula_acc").value = accionista.cedula;
+                document.getElementById("nombre_acc").value = accionista.nombre;
+                document.getElementById("acciones_acc").value = accionista.acciones;
+                cargarSelectAccionistaFin();
          }else{
                swal("El accionista no se encuentra registrado!", {
                    icon: "error",
@@ -341,15 +341,15 @@ function cargarSelectAccionistaFin(){
 
 function cargarDatosFin(){
     var str = '<h4>Representante:</h4>';
-    str += '<h5 class="h5">Nombre: '+nombre_rep+'</h5>';
-    str += '<h5 class="h5">CC: '+cedula_rep+'</h5><br>';
+    str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_rep").value+'</h5>';
+    str += '<h5 class="h5">CC: '+document.getElementById("cedula_rep").value+'</h5><br>';
     str += '<h4>Accionista:</h4>';
-    str += '<h5 class="h5">Nombre: '+nombre_acc+'</h5>';
-    str += '<h5 class="h5">CC: '+cedula_acc+'</h5>';
-    str += '<h5 class="h5">Número de acciones: '+acciones_acc+'</h5><br>';
+    str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_acc").value+'</h5>';
+    str += '<h5 class="h5">CC: '+document.getElementById("cedula_acc").value+'</h5>';
+    str += '<h5 class="h5">Número de acciones: '+document.getElementById("acciones_acc").value+'</h5><br>';
     document.getElementById("datos").innerHTML = str;
-    var str ='<input type="hidden" id="cc_rep" name="cc_rep" value="'+cedula_rep+'">';
-    str += '<input type="hidden" id="cc_acc"  name="cc_acc" value="'+cedula_acc+'">';
+    var str ='<input type="hidden" id="cc_rep" name="cc_rep" value="'+document.getElementById("cedula_rep").value+'">';
+    str += '<input type="hidden" id="cc_acc"  name="cc_acc" value="'+document.getElementById("cedula_acc").value+'">';
     document.getElementById("datos2").innerHTML = str;
 }
 
