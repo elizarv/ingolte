@@ -12,7 +12,10 @@ $cedula = $_POST['cedula'];
 $nombre = $_POST['nombre'];
 $acciones = $_POST['acciones'];
 $accionista = AccionistasFacade::select($cedula);
-if($accionista->getcedula()!="")echo "Ya";exit;
+if($accionista->getcedula()!=""){
+	echo "Ya";
+	exit;
+}
 AccionistasFacade::insert($cedula, $nombre, $acciones);
 echo "true";
 
