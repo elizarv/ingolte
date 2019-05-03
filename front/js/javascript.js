@@ -135,8 +135,13 @@ function postRepresentanteInsert(result, state){
                            icon: "error",
                          });
                          cargarInicio();
+                    }else if(result == "update"){
+                        swal("El numero de radicado se ha actualizado", {
+                           icon: "warning",
+                         });
+                        cargarInicio();
                     }else{
-                       alert("Hubo un errror en la inserción ( u.u)\n"+result);
+                        alert("Hubo un errror en la inserción ( u.u)\n"+result);
                     }
 
        }else{
@@ -356,7 +361,7 @@ function cargarSelectAccionistaFin(){
     str+='<li class="breadcrumb-item">Registrar Poder</li>';
     document.getElementById("breadc").innerHTML=str;
     document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
-    enviar("",'',cargarDatosFin);
+    enviar('','',cargarDatosFin);
 }
 
 function cargarDatosFin(){

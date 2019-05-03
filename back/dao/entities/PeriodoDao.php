@@ -48,6 +48,8 @@ private $cn;
           $rta3 = $this->ejecutarConsulta($sql);
           if(sizeof($rta3)!=0){
             if($rta3[0]['num_radicado']<$num_radicado)$sql = "UPDATE periodo SET representante_cc = '$representante_cc', num_radicado = '$num_radicado' WHERE cedula = '$cedula' AND fecha = '$fecha'";
+            $this->insertarConsulta($sql);
+            return "Update";
           }else{
             $sql= "INSERT INTO `periodo`(`fecha`,`cedula`, `representante_cc`, num_radicado)"
             ."VALUES ('$fecha','$cedula','$representante_cc','$num_radicado')";            
