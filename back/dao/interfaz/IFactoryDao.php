@@ -14,7 +14,6 @@ include_once realpath('../../dao/entities/Registro_votoDao.php');
 include_once realpath('../../dao/entities/Otros_votosDao.php');
 include_once realpath('../../dao/entities/Otras_votacionesDao.php');
 include_once realpath('../../dao/entities/ListaDao.php');
-include_once realpath('../../dao/entities/ListaDao.php');
 
 
 interface IFactoryDao {
