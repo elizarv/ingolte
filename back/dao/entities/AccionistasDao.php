@@ -55,6 +55,7 @@ private $cn;
           ."FROM `accionistas`"
           ."WHERE `cedula`='$cedula'";
           $data = $this->ejecutarConsulta($sql);
+          $accionistas = new Accionistas();
           for ($i=0; $i < count($data) ; $i++) {
           $accionistas->setCedula($data[$i]['cedula']);
           $accionistas->setNombre($data[$i]['nombre']);
@@ -200,6 +201,48 @@ $acciones=$accionistas->getAcciones();
           throw new Exception('Primary key is null');
       return null;
       }
+  }
+
+  public function listAccionistasPoderInvalido($fecha){
+    $lista = array();
+      try {
+          $sql ="SELECT `cedula`, `nombre`, `acciones`"
+          ."FROM accionistas  WHERE cedula IN (SELECT cedula FROM periodo WHERE fecha ='$fecha' "
+          ."AND valido = '1') AND cedula IN (SELECT cedula FROM registro_voto WHERE fecha = '$fecha')";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $accionistas= new Accionistas();
+              $accionistas->setCedula($data[$i]['cedula']);
+              $accionistas->setNombre($data[$i]['nombre']);
+              $accionistas->setAcciones($data[$i]['acciones']);
+              array_push($lista,$accionistas);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+
+  public function listAccionistasSinPoder($fecha){
+    $lista = array();
+      try {
+          $sql ="SELECT cedula, nombre, acciones FROM accionistas WHERE cedula IN (SELECT cedula FROM registro_voto "
+          ."WHERE fecha = '$fecha') AND cedula NOT IN (SELECT representante_cc FROM periodo WHERE fecha = '$fecha')
+          AND cedula NOT IN (SELECT cedula FROM periodo WHERE fecha = '$fecha')";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $accionistas= new Accionistas();
+              $accionistas->setCedula($data[$i]['cedula']);
+              $accionistas->setNombre($data[$i]['nombre']);
+              $accionistas->setAcciones($data[$i]['acciones']);
+              array_push($lista,$accionistas);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      } 
   }
 
       public function insertarConsulta($sql){

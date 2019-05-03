@@ -141,6 +141,22 @@ class AccionistasFacade {
      return $result;
   }
 
+  public static function listAccionistasPoderInvalido($fecha){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $accionistasDao =$FactoryDao->getaccionistasDao(self::getDataBaseDefault());
+     $result = $accionistasDao->listAccionistasPoderInvalido($fecha);
+     $accionistasDao->close();
+     return $result; 
+  }
+
+  public static function listAccionistasSinPoder($fecha){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $accionistasDao =$FactoryDao->getaccionistasDao(self::getDataBaseDefault());
+     $result = $accionistasDao->listAccionistasSinPoder($fecha);
+     $accionistasDao->close();
+     return $result; 
+  }
+
 
 }
 //That´s all folks!

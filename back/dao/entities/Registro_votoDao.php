@@ -29,10 +29,8 @@ private $cn;
      */
   public function insert($registro_voto){
       $cedula=$registro_voto->getCedula();
-$fecha=$registro_voto->getFecha();
-
+      $fecha =$registro_voto->getfecha();
       try {
-          $fecha = date("Y");
           $sql ="SELECT `cedula`"
           ."FROM accionistas "
           ."WHERE cedula IN (SELECT cedula FROM periodo WHERE fecha = '$fecha' AND representante_cc = '$cedula')";
@@ -43,7 +41,6 @@ $fecha=$registro_voto->getFecha();
             ."VALUES ('$cc','$fecha')";
             $this->insertarConsulta($sql);
           }
-
           $sql= "INSERT INTO `registro_voto`( `cedula`, `fecha`)"
           ."VALUES ('$cedula','$fecha')";
           return $this->insertarConsulta($sql);
@@ -67,6 +64,7 @@ $fecha=$registro_voto->getFecha();
           ."FROM `registro_voto`"
           ."WHERE `cedula`='$cedula' AND`fecha`='$fecha'";
           $data = $this->ejecutarConsulta($sql);
+          $registro_voto = new Registro_voto();
           for ($i=0; $i < count($data) ; $i++) {
           $registro_voto->setCedula($data[$i]['cedula']);
           $registro_voto->setFecha($data[$i]['fecha']);

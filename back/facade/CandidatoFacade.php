@@ -36,19 +36,32 @@ class CandidatoFacade {
    * @param numero
    * @param fecha
    */
-  public static function insert( $nombre,  $cedula,  $numero){
+  public static function insert($fecha, $nombre, $cedula, $numero, $cuenta){
       $fecha = date("Y");
       $candidato = new Candidato();
       $candidato->setNombre($nombre); 
       $candidato->setCedula($cedula); 
       $candidato->setNumero($numero); 
       $candidato->setFecha($fecha); 
+      $candidato->setcandidatonumero($cuenta);
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $candidatoDao =$FactoryDao->getcandidatoDao(self::getDataBaseDefault());
      $rtn = $candidatoDao->insert($candidato);
      $candidatoDao->close();
      return $rtn;
+  }
+
+  public static function countnumero($fecha, $numero){
+    $candidato = new Candidato();
+    $candidato->setFecha($fecha);
+    $candidato->setNumero($numero);
+
+    $FactoryDao=new FactoryDao(self::getGestorDefault());
+    $candidatoDao =$FactoryDao->getcandidatoDao(self::getDataBaseDefault());
+    $result = $candidatoDao->countnumero($candidato);
+    $candidatoDao->close();
+    return $result;
   }
 
   /**

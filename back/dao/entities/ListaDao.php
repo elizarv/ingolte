@@ -48,7 +48,7 @@ $numero=$lista->getNumero();
      */
   public function select($lista){
       $fecha=$lista->getFecha();
-$numero=$lista->getNumero();
+      $numero=$lista->getNumero();
 
       try {
           $sql= "SELECT `fecha`, `numero`"
@@ -59,9 +59,9 @@ $numero=$lista->getNumero();
           for ($i=0; $i < count($data) ; $i++) {
           $lista->setFecha($data[$i]['fecha']);
           $lista->setNumero($data[$i]['numero']);
-
           }
-      return $lista;      } catch (SQLException $e) {
+      return $lista;      
+    } catch (SQLException $e) {
           throw new Exception('Primary key is null');
       return null;
       }

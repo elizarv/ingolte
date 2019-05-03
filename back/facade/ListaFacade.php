@@ -40,7 +40,7 @@ class ListaFacade {
       $lista->setNumero($numero); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
-     $listaDao =$FactoryDao->getlistaDao(self::getDataBaseDefault());
+     $listaDao =$FactoryDao->getListaDao(self::getDataBaseDefault());
      $rtn = $listaDao->insert($lista);
      $listaDao->close();
      return $rtn;
@@ -59,7 +59,7 @@ class ListaFacade {
       $lista->setNumero($numero); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
-     $listaDao =$FactoryDao->getlistaDao(self::getDataBaseDefault());
+     $listaDao =$FactoryDao->getListaDao(self::getDataBaseDefault());
      $result = $listaDao->select($lista);
      $listaDao->close();
      return $result;
@@ -92,7 +92,7 @@ class ListaFacade {
       $lista->setNumero($numero); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
-     $listaDao =$FactoryDao->getlistaDao(self::getDataBaseDefault());
+     $listaDao =$FactoryDao->getListaDao(self::getDataBaseDefault());
      $listaDao->delete($lista);
      $listaDao->close();
   }
@@ -104,7 +104,7 @@ class ListaFacade {
    */
   public static function listAll(){
      $FactoryDao=new FactoryDao(self::getGestorDefault());
-     $listaDao =$FactoryDao->getlistaDao(self::getDataBaseDefault());
+     $listaDao =$FactoryDao->getListaDao(self::getDataBaseDefault());
      $result = $listaDao->listAll();
      $listaDao->close();
      return $result;
@@ -121,7 +121,7 @@ class ListaFacade {
       $lista->setFecha($fecha); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
-     $listaDao =$FactoryDao->getlistaDao(self::getDataBaseDefault());
+     $listaDao =$FactoryDao->getListaDao(self::getDataBaseDefault());
      $result = $listaDao->listByFecha($lista);
      $listaDao->close();
      return $result;
@@ -138,7 +138,7 @@ class ListaFacade {
       $lista->setNumero($numero); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
-     $listaDao =$FactoryDao->getlistaDao(self::getDataBaseDefault());
+     $listaDao =$FactoryDao->getListaDao(self::getDataBaseDefault());
      $result = $listaDao->listByNumero($lista);
      $listaDao->close();
      return $result;

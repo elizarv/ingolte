@@ -11,6 +11,10 @@ include_once realpath('../../dao/entities/AccionistasDao.php');
 include_once realpath('../../dao/entities/PeriodoDao.php');
 include_once realpath('../../dao/entities/CandidatoDao.php');
 include_once realpath('../../dao/entities/Registro_votoDao.php');
+include_once realpath('../../dao/entities/Otros_votosDao.php');
+include_once realpath('../../dao/entities/Otras_votacionesDao.php');
+include_once realpath('../../dao/entities/ListaDao.php');
+include_once realpath('../../dao/entities/ListaDao.php');
 
 
 interface IFactoryDao {
@@ -29,6 +33,8 @@ interface IFactoryDao {
      public function getPeriodoDao($dbName);
 
      public function getCandidatoDao($dbName);
+
+     public function getListaDao($dbName);
 
 }
 //That´s all folks!

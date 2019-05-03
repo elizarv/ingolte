@@ -32,15 +32,11 @@ private $cn;
       $cedula=$candidato->getCedula();
       $numero=$candidato->getNumero();
       $fecha=$candidato->getFecha();
+      $candidatonumero = $candidato->getcandidatonumero();
 
       try {
-          $sql = "SELECT * FROM lista WHERE numero = '$numero' AND fecha = '$fecha'";
-          if($this->insertarConsulta($sql) == 1){
-            $sql= "INSERT INTO `lista` (`numero`,`fecha`)"." VALUES ('$numero', '$fecha')";
-            $this->insertarConsulta($sql);
-          }
-          $sql= "INSERT INTO `candidato`( `nombre`, `cedula`, `numero`, `fecha`)"
-          ."VALUES ('$nombre','$cedula','$numero','$fecha')";
+          $sql= "INSERT INTO `candidato`( `nombre`, `cedula`, `numero`, `fecha`, numero_candidato)"
+          ."VALUES ('$nombre','$cedula','$numero','$fecha', $candidatonumero)";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -70,7 +66,29 @@ $fecha=$candidato->getFecha();
           $candidato->setFecha($data[$i]['fecha']);
 
           }
-      return $candidato;      } catch (SQLException $e) {
+      return $candidato;      
+    } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+
+  public function countnumero($candidato){
+      $numero=$candidato->getNumero();
+      $fecha=$candidato->getFecha();
+
+      try {
+          $sql= "SELECT count(numero) as cuenta "
+          ."FROM candidato "
+          ."WHERE fecha='$fecha' AND numero ='$numero'";
+          $data = $this->ejecutarConsulta($sql);
+          $cuenta = 0;
+          for ($i=0; $i < count($data) ; $i++) {      
+            $cuenta = $data[$i]['cuenta'];
+          }
+      return $cuenta;   
+
+      } catch (SQLException $e) {
           throw new Exception('Primary key is null');
       return null;
       }

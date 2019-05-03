@@ -47,5 +47,16 @@ class FactoryDao implements IFactoryDao{
         return new Registro_votoDao($this->conn->obtener($dbName));
     }
 
+    public function getListaDao($dbName){
+        return new ListaDao($this->conn->obtener($dbName));
+    }
+
+    public function getOtros_votosDao($dbName){
+        return new Otros_votosDao($this->conn->obtener($dbName));
+    }
+    public function getOtras_votacionesDao($dbName){
+        return new Otras_votacionesDao($this->conn->obtener($dbName));
+    }
+
 }
 //That´s all folks!

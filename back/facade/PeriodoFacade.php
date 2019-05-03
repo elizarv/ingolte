@@ -99,5 +99,13 @@ class PeriodoFacade {
      return $result;
   }
 
+  public static function listPoderesAsistencia($fecha){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $periodoDao =$FactoryDao->getperiodoDao(self::getDataBaseDefault());
+     $result = $periodoDao->listPoderesAsistencia($fecha);
+     $periodoDao->close();
+     return $result; 
+  }
+
 
 }

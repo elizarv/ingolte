@@ -56,6 +56,11 @@ function postAccionistaInsert(result,state){
                            icon: "success",
                          });
                          cargarInicio();
+                    }else if(result=="Ya"){
+                        swal("Ya se encuentra registrado", {
+                           icon: "error",
+                         });
+                         cargarInicio();
                     }else{
                        alert("Hubo un errror en la inserción ( u.u)\n"+result);
                     }
@@ -156,9 +161,7 @@ function preBuscarDatosVotante(idForm){
          var json=JSON.parse(result);
          if(json[0].msg=="exito"){
                 var accionista = json[1];
-                cedula_rep = accionista.cedula;
-                nombre_rep = accionista.nombre;
-                enviar('','',cargarDatosVotante);
+                cargarDatosVotante(accionista.cedula, accionista.nombre);
          }else{
                swal("El representante no se encuentra registrado!\nPor favor registrelo.", {
                    icon: "error",
@@ -176,7 +179,9 @@ function cargarDatosVotante(cedula, nombre){
     str+='<li class="breadcrumb-item">Registrar Votante</li>';
     document.getElementById("breadc").innerHTML=str;
     document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Votante</h2>';
-    enviar("",'',postCargarDatosVotante);
+    nombre_rep = nombre;
+    cedula_rep = cedula;
+    enviar('','',postCargarDatosVotante);
 }
 
 
@@ -375,3 +380,57 @@ function postConsultarPoderes(result,state){
      }
 }
 
+function cargarotra(){
+    cargaContenido('remp','front/views/registrarVotacion.html');
+    var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+    str+='<li class="breadcrumb-item">Registrar Nueva Votación</li>';
+    document.getElementById("breadc").innerHTML=str;
+    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Votación</h2>';
+}
+
+function preVotacionInsert(idForm){
+    if(validarForm(idForm)){
+        var formData = $('#'+idForm).serialize();
+        enviar(formData,'back/controller/otras_votaciones/Otras_votacionesInsert.php',postVotacionInsert);
+    }
+}
+
+function postVotacionInsert(result,state){
+    if(state=="success"){
+            if(result=="true"){
+               swal("Registro exitoso!", {
+                   icon: "success",
+                 });
+                 cargarInicio();                    
+            }else{
+               alert("Hubo un errror en la inserción ( u.u)\n"+result);
+            }
+       }else{
+            alert("Hubo un errror interno ( u.u)\n"+result);
+            }
+}
+
+function cargarConsultarAsistencia(){
+    cargaContenido('remp','front/views/consultarAsistencia.html');
+    var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+    str+='<li class="breadcrumb-item">Consultar Asistencia</li>';
+    document.getElementById("breadc").innerHTML=str;
+    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Consultar Asistencia</h2>';
+}
+
+function preConsultarAsistencia(idForm){
+    if(validarForm(idForm)){
+        var formData = $('#'+idForm).serialize();
+        enviar(formData,'back/controller/dompdf/reporteAsistencia.php',postConsultarAsistencia);
+    }
+}
+
+function postConsultarAsistencia(result,state){
+    if(state=="success"){
+        window.open('back/controller/dompdf/pdfs/reporteAsistencia.pdf', '_blank');
+        cargarInicio();
+     }else{
+         alert("Hubo un errror interno ( u.u)\n"+result);
+     }
+
+}

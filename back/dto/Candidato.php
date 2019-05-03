@@ -14,6 +14,7 @@ class Candidato {
   private $cedula;
   private $numero;
   private $fecha;
+  private $numerocandidato;
 
     /**
      * Constructor de Candidato
@@ -79,6 +80,14 @@ class Candidato {
      */
   public function setFecha($fecha){
       $this->fecha = $fecha;
+  }
+
+  public function getcandidatonumero(){
+    return $this->candidatonumero;
+  }
+
+  public function setcandidatonumero($n){
+    $this->candidatonumero = $n;
   }
 
 
