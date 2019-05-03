@@ -136,7 +136,7 @@ $numero=$lista->getNumero();
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
   public function listByFecha($lista){
-      $lista = array();
+      $list = array();
       $fecha=$lista->getFecha();
 
       try {
@@ -145,13 +145,13 @@ $numero=$lista->getNumero();
           ."WHERE `fecha`='$fecha'";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
-          $lista = new Lista();
-          $lista->setFecha($data[$i]['fecha']);
-          $lista->setNumero($data[$i]['numero']);
+            $lista = new Lista();
+            $lista->setFecha($data[$i]['fecha']);
+            $lista->setNumero($data[$i]['numero']);
 
-          array_push($lista,$lista);
+          array_push($list,$lista);
           }
-      return $lista;
+      return $list;
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
       return null;
