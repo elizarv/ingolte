@@ -248,6 +248,14 @@ function cargarDatosVotante(){
 
 
 function postCargarDatosVotante(){
+    swal({
+      position: 'top',
+      title: 'Registro de sistencia',
+      text: 'Nombre: '+document.getElementById("nombre_rep").value+'\nCedula: '+document.getElementById("cedula_rep").value,
+      icon: 'success',
+      buttons: false,
+      timer: 1000
+    });
     var str = "";
     str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_rep").value+'</h5>';
     str += '<h5 class="h5">CC: '+document.getElementById("cedula_rep").value+'</h5><br>';    
@@ -343,6 +351,14 @@ function cargarSelectAccionista2(){
 }
 
 function cargarDatosRep(){
+    swal({
+      position: 'top',
+      title: 'Apoderado',
+      text: 'Nombre: '+document.getElementById("nombre_rep").value+'\nCedula: '+document.getElementById("cedula_rep").value,
+      icon: 'success',
+      buttons: false,
+      timer: 1000
+    });
     var str="";
     str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_rep").value+'</h5>';
     str += '<h5 class="h5">CC: '+document.getElementById("cedula_rep").value+'</h5><br>';
@@ -377,7 +393,7 @@ function preSelectAccionista2(idForm){
      }
 }
 
-function cargarSelectAccionistaFin(){
+function cargarSelectAccionistaFin(){    
     cargaContenido('remp','front/views/registrarRepresentante.html');
     var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
     str+='<li class="breadcrumb-item">Registrar Poder</li>';
@@ -387,6 +403,14 @@ function cargarSelectAccionistaFin(){
 }
 
 function cargarDatosFin(){
+    swal({
+      position: 'top',
+      title: 'Poderdante',
+      text: 'Nombre: '+document.getElementById("nombre_acc").value+'\nCedula: '+document.getElementById("cedula_acc").value,
+      icon: 'success',
+      buttons: false,
+      timer: 1000
+    });
     var str = '<h4>Representante:</h4>';
     str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_rep").value+'</h5>';
     str += '<h5 class="h5">CC: '+document.getElementById("cedula_rep").value+'</h5><br>';
