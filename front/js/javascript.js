@@ -368,6 +368,7 @@ function cargarDatosRep(){
     str += '<h5 class="h5">Nombre: '+nombre_rep+'</h5>';
     str += '<h5 class="h5">CC: '+cedula_rep+'</h5><br>';
     document.getElementById("datos").innerHTML = str;
+
 }
 
 
@@ -426,8 +427,8 @@ function cargarDatosFin(){
     str += '<h5 class="h5">CC: '+cedula_acc+'</h5>';
     str += '<h5 class="h5">Número de acciones: '+acciones_acc+'</h5><br>';
     document.getElementById("datos").innerHTML = str;
-    var str ='<input type="hidden" id="cc_rep" name="cc_rep" value="'+document.getElementById("cedula_rep").value+'">';
-    str += '<input type="hidden" id="cc_acc"  name="cc_acc" value="'+document.getElementById("cedula_acc").value+'">';
+    var str ='<input type="hidden" id="cc_rep" name="cc_rep" value="'+cedula_rep+'">';
+    str += '<input type="hidden" id="cc_acc"  name="cc_acc" value="'+cedula_acc+'">';
     document.getElementById("datos2").innerHTML = str;
 }
 

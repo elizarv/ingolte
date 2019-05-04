@@ -35,26 +35,35 @@ private $cn;
       $num_radicado = $periodo->getnumradicado();
       $fecha=date("Y");
       try {
+
+        $sqlanterior = "SELECT * FROM accionistas a, periodo p WHERE a.cedula = p.cedula AND p.representante_cc = '$representante_cc' AND fecha = '$fecha'";
+        $rtaanterior = $this->ejecutarConsulta($sqlanterior);
           $sql = "SELECT SUM(a.acciones) as suma FROM accionistas a, periodo p".
           " WHERE a.cedula = p.cedula AND p.representante_cc = '$representante_cc'".
           " AND p.fecha = '$fecha'";
           $rta1 = $this->ejecutarConsulta($sql);
-          $sql = "SELECT acciones FROM accionistas WHERE cedula = '$cedula'";
-          $rta2 = $this->ejecutarConsulta($sql);
-          if($rta1[0]['suma'] + $rta2[0]['acciones'] > 250){
-            return "Error";
-          }
-          $sql = "SELECT cedula, num_radicado FROM periodo WHERE cedula = '$cedula' AND fecha = '$fecha'";
-          $rta3 = $this->ejecutarConsulta($sql);
-          if(sizeof($rta3)!=0){
-            if($rta3[0]['num_radicado']<$num_radicado)$sql = "UPDATE periodo SET representante_cc = '$representante_cc', num_radicado = '$num_radicado' WHERE cedula = '$cedula' AND fecha = '$fecha'";
-            $this->insertarConsulta($sql);
-            return "Update";
-          }else{
-            $sql= "INSERT INTO `periodo`(`fecha`,`cedula`, `representante_cc`, num_radicado)"
-            ."VALUES ('$fecha','$cedula','$representante_cc','$num_radicado')";            
-          }
+          $sql2 = "SELECT acciones FROM accionistas WHERE cedula = '$cedula'";
+          $rta2 = $this->ejecutarConsulta($sql2); 
+
+            if(sizeof($rtaanterior)!= 0 && ($rta1[0]['suma']+$rta2[0]['acciones'] > 250)){
+              return "Error";
+            }
+            $sql = "SELECT cedula, num_radicado FROM periodo WHERE cedula = '$cedula' AND fecha = '$fecha'";
+            $rta3 = $this->ejecutarConsulta($sql);
+            if(sizeof($rta3)!=0){
+              if($rta3[0]['num_radicado']<$num_radicado){
+                $sql = "UPDATE periodo SET representante_cc = '$representante_cc', num_radicado = '$num_radicado' WHERE cedula = '$cedula' AND fecha = '$fecha'";
+              $this->insertarConsulta($sql);
+              return "Update";
+              }
+            }else{
+              $sql= "INSERT INTO `periodo`(`fecha`,`cedula`, `representante_cc`, num_radicado)"
+              ."VALUES ('$fecha','$cedula','$representante_cc','$num_radicado')";            
+            }
+          
+        
           return $this->insertarConsulta($sql);
+        
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
       }
