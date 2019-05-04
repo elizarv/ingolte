@@ -33,7 +33,7 @@ $content .= '<table border=1 cellspacing=0 cellpadding=2 style="margin: 0 auto">
 $content .= '<th>Nombre</th><th>Votos Si</th><th>Votos No</th></tr></thead>';
 $content .= '<tbody>';
 
-foreach ($list as $obj => $resultado) {	
+foreach ($otros as $obj => $resultado) {	
 	$content .= '<tr><td style="text-align:center;">'.$resultado->getnombre().'</td>';
 	$content .= '<td style="text-align:center;">'.$resultado->getvotos().'</td>';
 	$content .= '<td style="text-align:center;">'.$resultado->getvotosno().'</td></tr>';

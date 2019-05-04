@@ -238,6 +238,11 @@ function preBuscarDatosVotante(idForm){
 }
 
 function cargarDatosVotante(){
+    cargaContenido('remp','front/views/registrarVotantes2.html');
+        var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+        str+='<li class="breadcrumb-item">Registrar Votante</li>';
+        document.getElementById("breadc").innerHTML=str;
+        document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Votante</h2>';
     swal({
       title: 'Registro de Asistencia',
       text: 'Nombre: '+nombre_rep+'\nCedula: '+cedula_rep,
@@ -246,12 +251,9 @@ function cargarDatosVotante(){
       dangerMode: true
     }).then((sure) => {
       if (sure) {
-        cargaContenido('remp','front/views/registrarVotantes2.html');
-        var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
-        str+='<li class="breadcrumb-item">Registrar Votante</li>';
-        document.getElementById("breadc").innerHTML=str;
-        document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Votante</h2>';
         enviar('','',postCargarDatosVotante);
+      }else{
+        cargarVotanteRegistro();
       }
     });    
     
@@ -345,6 +347,11 @@ function preSelectAccionista(idForm){
 }
 
 function cargarSelectAccionista2(){
+    cargaContenido('remp','front/views/selectAccionista2.html');
+    var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+    str+='<li class="breadcrumb-item">Registrar Poder</li>';
+    document.getElementById("breadc").innerHTML=str;
+    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
     swal({
       title: 'Apoderado',
       text: 'Nombre: '+nombre_rep+'\nCedula: '+cedula_rep,
@@ -353,12 +360,9 @@ function cargarSelectAccionista2(){
       dangerMode: true
     }).then((sure) => {
       if (sure) {
-        cargaContenido('remp','front/views/selectAccionista2.html');
-        var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
-        str+='<li class="breadcrumb-item">Registrar Poder</li>';
-        document.getElementById("breadc").innerHTML=str;
-        document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
         enviar('','',cargarDatosRep);
+      }else{
+        cargarSelectAccionista();
       }
     });      
 }
@@ -400,6 +404,11 @@ function preSelectAccionista2(idForm){
 }
 
 function cargarSelectAccionistaFin(){    
+        cargaContenido('remp','front/views/registrarRepresentante.html');
+        var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+        str+='<li class="breadcrumb-item">Registrar Poder</li>';
+        document.getElementById("breadc").innerHTML=str;
+        document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
     swal({
       title: 'Poderdante',
       text: 'Nombre: '+nombre_acc+'\nCedula: '+cedula_acc+'\nAcciones: '+acciones_acc,
@@ -407,13 +416,15 @@ function cargarSelectAccionistaFin(){
       buttons: ["Cancelar", "Aceptar"],
       dangerMode: true
     }).then((sure) => {
-      if (sure) {
-        cargaContenido('remp','front/views/registrarRepresentante.html');
+      if (sure) {        
+        enviar('','',cargarDatosFin);
+      }else{
+        cargaContenido('remp','front/views/selectAccionista2.html');
         var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
         str+='<li class="breadcrumb-item">Registrar Poder</li>';
         document.getElementById("breadc").innerHTML=str;
         document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
-        enviar('','',cargarDatosFin);
+        enviar('','',cargarDatosRep);
       }
     });       
 }
