@@ -36,11 +36,10 @@ class AccionistasFacade {
    * @param apellidos
    * @param acciones
    */
-  public static function insert( $cedula,  $nombre,  $acciones){
+  public static function insert( $cedula,  $nombre){
       $accionistas = new Accionistas();
       $accionistas->setCedula($cedula); 
       $accionistas->setNombre($nombre); 
-      $accionistas->setAcciones($acciones); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $accionistasDao =$FactoryDao->getaccionistasDao(self::getDataBaseDefault());
