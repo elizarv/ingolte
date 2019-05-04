@@ -107,5 +107,13 @@ class PeriodoFacade {
      return $result; 
   }
 
+  public static function deleteconsecutivo($numero){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $periodoDao =$FactoryDao->getperiodoDao(self::getDataBaseDefault());
+     $result = $periodoDao->deleteconsecutivo($numero);
+     $periodoDao->close();
+     return $result; 
+  }
+
 
 }

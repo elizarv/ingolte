@@ -264,7 +264,7 @@ function postCargarDatosVotante(){
     var str = "";
     str += '<h5 class="h5">Nombre: '+nombre_rep+'</h5>';
     str += '<h5 class="h5">CC: '+cedula_rep+'</h5><br>';    
-    str +='<input type="hidden" id="cc" name="cc" value="'+document.getElementById("cedula_rep").value+'">';
+    str +='<input type="hidden" id="cc" name="cc" value="'+cedula_rep+'">';
     document.getElementById("datos").innerHTML = str;
 }
 
@@ -650,11 +650,37 @@ function postConsultarResultados(result,state){
 }
 
 function mostrarResultados(result,state){
-    alert(result);
     if(state=="success"){
         window.open('back/controller/dompdf/pdfs/reporteResultados.pdf', '_blank');
         cargarInicio();
      }else{
          alert("Hubo un errror interno ( u.u)\n"+result);
      }
+}
+
+function eliminarConsecutivo(idForm){
+    if(validarForm(idForm)){
+        var formData = $('#'+idForm).serialize();
+        enviar(formData,'back/controller/periodo/PeriodoDelete.php',posteliminarconsecutivo);
+    }
+}
+
+function posteliminarconsecutivo(result, state){
+    if(state=="success"){
+        swal("Se ha eliminado con éxito", {
+                           icon: "error",
+                         });    
+        cargarInicio();
+     }else{
+         alert("Hubo un errror interno ( u.u)\n"+result);
+     }
+
+}
+
+function cargareliminarconsecutivo(){
+    cargaContenido('remp','front/views/eliminarConsecutivo.html');
+    var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+    str+='<li class="breadcrumb-item">Eliminar Consecutivo</li>';
+    document.getElementById("breadc").innerHTML=str;
+    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Eliminar Consecutivo</h2>';
 }

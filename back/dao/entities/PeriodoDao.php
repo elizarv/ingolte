@@ -83,6 +83,17 @@ public function update($periodo){
       }
   }
 
+  public function deleteconsecutivo($numero){
+    $fecha = Date("Y");
+      try {
+          $sql= "DELETE FROM periodo WHERE num_radicado = '$numero' AND `fecha`='$fecha' ;";
+         $this->insertarConsulta($sql);
+         return "true";
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      }
+  }
+
 
   public function select($periodo){
       $cedula=$periodo->getCedula();

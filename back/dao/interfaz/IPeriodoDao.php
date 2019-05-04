@@ -16,6 +16,8 @@ interface IPeriodoDao {
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
   public function insert($periodo);
+
+  public function deleteconsecutivo($numero);
     /**
      * Modifica un objeto Periodo en la base de datos.
      * @param periodo objeto con la información a modificar
