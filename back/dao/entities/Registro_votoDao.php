@@ -78,7 +78,6 @@ $fecha=$registro_voto->getFecha();
       }
   }
 
-
   public function selectByFecha($registro){
       $fecha=$registro->getfecha();
 
@@ -103,11 +102,11 @@ $fecha=$registro_voto->getFecha();
      */
   public function update($registro_voto){
       $cedula=$registro_voto->getCedula();
-$fecha=$registro_voto->getFecha();
-$voto1=$registro_voto->getVoto1();
+      $fecha=$registro_voto->getFecha();
+      $voto1=$registro_voto->getVoto1();
 
       try {
-          $sql= "UPDATE `registro_voto` SET`cedula`='$cedula' ,`fecha`='$fecha' ,`voto1`='$voto1' WHERE `cedula`='$cedula' AND `fecha`='$fecha' ";
+          $sql= "UPDATE `registro_voto` SET `fecha_lista`='$fecha' ,`voto1`='$voto1' WHERE `cedula`='$cedula' AND `fecha`='$fecha' ";
          return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');

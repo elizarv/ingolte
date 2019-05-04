@@ -50,6 +50,14 @@ class Otras_votacionesFacade {
      return $result;
   }
 
+  public static function listByFecha($fecha){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $otrasDao =$FactoryDao->getOtras_votacionesDao(self::getDataBaseDefault());
+     $result = $otrasDao->listByFecha($fecha);
+     $otrasDao->close();
+     return $result;
+  }
+
 
 }
 //That´s all folks!

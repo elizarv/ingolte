@@ -13,6 +13,8 @@ interface IOtras_votacionesDao {
   public function insert($otros_votos);
 
   public function listAll();
+
+  public function listByFecha($fecha);
     
   public function close();
 }

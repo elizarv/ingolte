@@ -238,6 +238,14 @@ function preBuscarDatosVotante(idForm){
 }
 
 function cargarDatosVotante(){
+    swal({
+      position: 'top',
+      title: 'Registro de sistencia',
+      text: 'Nombre: '+document.getElementById("nombre_rep").value+'\nCedula: '+document.getElementById("cedula_rep").value,
+      icon: 'success',
+      buttons: false,
+      timer: 1000
+    });
     cargaContenido('remp','front/views/registrarVotantes2.html');
     var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
     str+='<li class="breadcrumb-item">Registrar Votante</li>';
@@ -247,15 +255,7 @@ function cargarDatosVotante(){
 }
 
 
-function postCargarDatosVotante(){
-    swal({
-      position: 'top',
-      title: 'Registro de sistencia',
-      text: 'Nombre: '+document.getElementById("nombre_rep").value+'\nCedula: '+document.getElementById("cedula_rep").value,
-      icon: 'success',
-      buttons: false,
-      timer: 1000
-    });
+function postCargarDatosVotante(){    
     var str = "";
     str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_rep").value+'</h5>';
     str += '<h5 class="h5">CC: '+document.getElementById("cedula_rep").value+'</h5><br>';    
@@ -342,15 +342,6 @@ function preSelectAccionista(idForm){
 }
 
 function cargarSelectAccionista2(){
-    cargaContenido('remp','front/views/selectAccionista2.html');
-    var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
-    str+='<li class="breadcrumb-item">Registrar Poder</li>';
-    document.getElementById("breadc").innerHTML=str;
-    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
-    enviar('','',cargarDatosRep);
-}
-
-function cargarDatosRep(){
     swal({
       position: 'top',
       title: 'Apoderado',
@@ -359,6 +350,15 @@ function cargarDatosRep(){
       buttons: false,
       timer: 1000
     });
+    cargaContenido('remp','front/views/selectAccionista2.html');
+    var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+    str+='<li class="breadcrumb-item">Registrar Poder</li>';
+    document.getElementById("breadc").innerHTML=str;
+    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
+    enviar('','',cargarDatosRep);
+}
+
+function cargarDatosRep(){    
     var str="";
     str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_rep").value+'</h5>';
     str += '<h5 class="h5">CC: '+document.getElementById("cedula_rep").value+'</h5><br>';
@@ -394,6 +394,14 @@ function preSelectAccionista2(idForm){
 }
 
 function cargarSelectAccionistaFin(){    
+    swal({
+      position: 'top',
+      title: 'Poderdante',
+      text: 'Nombre: '+document.getElementById("nombre_acc").value+'\nCedula: '+document.getElementById("cedula_acc").value,
+      icon: 'success',
+      buttons: false,
+      timer: 1000
+    });
     cargaContenido('remp','front/views/registrarRepresentante.html');
     var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
     str+='<li class="breadcrumb-item">Registrar Poder</li>';
@@ -403,14 +411,6 @@ function cargarSelectAccionistaFin(){
 }
 
 function cargarDatosFin(){
-    swal({
-      position: 'top',
-      title: 'Poderdante',
-      text: 'Nombre: '+document.getElementById("nombre_acc").value+'\nCedula: '+document.getElementById("cedula_acc").value,
-      icon: 'success',
-      buttons: false,
-      timer: 1000
-    });
     var str = '<h4>Representante:</h4>';
     str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_rep").value+'</h5>';
     str += '<h5 class="h5">CC: '+document.getElementById("cedula_rep").value+'</h5><br>';

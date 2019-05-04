@@ -68,26 +68,23 @@
             <section>
 
             <div class="container-fluid">
-              <div class="row">
-                <div class="col-lg-6">
-            <div class="card">
-                   <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">Votación</h3>
-                    </div>
+            <div class="row ">
+              <div class="col-lg-3 hovereffect">
+                  <div class="card">
                     <div class="card-body">
-                      <form id="datosVotante" action="javascript:preVotante('datosVotante')" method="post"> <div class="form-group">
-                          <label class="form-control-label">Digite su numero de cedula</label>
-                          <input name="cc" id="cc" type="text" placeholder="Ingrese el número de cédula del votante" class="form-control" required>
+                      <h4 class="card-title">Ver votaciones</h4>
+                      <div class="row ">
+                        <div class="center">
+                          <a href="javascript:cargarOtrasVotaciones()">
+                            <img src="front/public/img/otravotacion.png">
+                          </a>
                         </div>
-                        <div class="form-group">
-                          <input type="submit" value="Buscar" class="btn btn-primary">
-                        </div>
-                      </form>
+                      </div>
                     </div>
                   </div>
-                </div>
-                </div>
               </div>
+            </div>
+          </div>
             </section>
 
           </div>
@@ -123,6 +120,6 @@
     <script src="front/js/Ajax.js"></script>
     <script src="front/js/HtmlBuilder.js"></script>
     <script src="front/js/javascript.js"></script>
-    <script src="front/js/votacionjs.js"></script>
+    <script src="front/js/otrasjs.js"></script>
   </body>
 </html>

@@ -67,6 +67,7 @@ class Registro_votoFacade {
      return $result;
   }
 
+
   public static function selectByFecha($fecha){
       $registro = new Registro_voto();
       $registro->setfecha($fecha); 

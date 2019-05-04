@@ -9,7 +9,7 @@
 include_once realpath('../../facade/Otros_votosFacade.php');
 
 $cedula = strip_tags($_POST['cedula']);
-$fecha = strip_tags($_POST['fecha']);
+$fecha = Date("Y");
 $id = strip_tags($_POST['id']);
 $voto = strip_tags($_POST['voto']);
 Otros_votosFacade::insert($cedula, $fecha, $id, $voto);

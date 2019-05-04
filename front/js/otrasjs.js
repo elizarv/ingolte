@@ -1,61 +1,40 @@
-var cedula;
+var numero, cc, res;
 
-function cargarPlanchas(cedula){
-    cargaContenido('remp','front/views/votar.html');
-    enviar("",'back/controller/lista/ListaListByFecha.php',postCargarVotacionPlanchas);
+function cargarOtrasVotaciones(){
+	cargaContenido('remp','front/views/votar.html');
+	enviar("",'back/controller/otras_votaciones/Otras_votacionesListByFecha.php',postCargarOtrasVotaciones);	
 }
 
-function postCargarVotacionPlanchas(result, state){
+function postCargarOtrasVotaciones(result, state){
 	 if(state=="success"){
          var json=JSON.parse(result);
          if(json[0].msg=="exito"){
          	var str ="";
          	for(var i=1; i < Object.keys(json).length; i++) {
-                var lista = json[i];
-                str += '<div class="col-lg-1 hovereffect"><div class="card"><div class="card-body">';
-                str += '<a href="javascript:preVotar('+lista.numero+')"><button type="button" class="btn btn-primary">'
-                str += lista.numero+'</button></a></div></div></div></div></div>';
+                var votacion = json[i];
+                str += '<div class="col-lg-3 hovereffect"><div class="card"><div class="card-body">';
+                str += '<h4 class="card-title">'+votacion.nombre+'</h4><div class="row "><div class="center">';
+                str += '<a href="javascript:cargarVotarOtra('+votacion.id+')"><img src="front/public/img/sino.png">';
+                str += '</a></div></div>';
             }
             document.getElementById("contenedor").innerHTML+=str;
          }else{
-               swal("El representante no se encuentra registrado!\nPor favor registrelo.", {
-                   icon: "error",
-                 });
+              alert("Error");
          }
      }else{
          alert("Hubo un errror interno ( u.u)\n"+result);
      }
 }
 
-
-function preVotar(num){
-		swal({
-		  title: '¿Está seguro?',
-		  icon: 'warning',
-		  buttons: ["Cancelar", "Si, estoy seguro"],
-		  dangerMode: true
-		}).then((sure) => {
-		  if (sure) {
-            formData = {cc:cedula, numero:num};
-            enviar(formData,'back/controller/registro_voto/Registro_votoUpdate.php',postVotar);
-            
-		  }
-		});
+function cargarVotarOtra(id){
+	numero = id;
+	cargaContenido('remp','front/views/consultarCedula.html');	
 }
-
-
-function postVotar(result, state){
-        swal("Su voto ha sido registrado", {
-		      icon: "success",
-		    });
-        window.location.href = 'votaciones.html';
-}
-
 
 function preVotante(idForm){
     if(validarForm(idForm)){
     var formData=$('#'+idForm).serialize();
-    enviar(formData,'back/controller/registro_voto/VotanteSelect.php',postVotante);
+    enviar(formData,'back/controller/otras_votaciones/VotanteSelect.php',postVotante);
     }else{
         alert("Debe llenar los campos requeridos");
     }
@@ -75,9 +54,9 @@ function postVotante(result, state){
                   dangerMode: true
                 }).then((sure) => {
                   if (sure) {
-                    cargarPlanchas(cedula);
+                    preVotarOtra(cedula);
                   }else{
-                    window.location.href = 'votaciones.html';
+                    cargarVotarOtra(numero);
                   }
                 });       
          }else if(json[0].msg=="Error"){
@@ -96,4 +75,20 @@ function postVotante(result, state){
      }
 }
 
+function preVotarOtra(cedula){
+	cc = cedula;
+	cargaContenido('remp','front/views/sino.html');
+}
 
+function votar(voto){
+	res = voto;
+  formData = {cedula:cc, id:numero, voto:res};
+	enviar(formData,'back/controller/otros_votos/otros_votosInsert.php',postVotar);
+}
+
+function postVotar(result, state){
+        swal("Su voto ha sido registrado", {
+          icon: "success",
+        });
+        cargarVotarOtra(numero);
+}

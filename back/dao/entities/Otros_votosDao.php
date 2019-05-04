@@ -51,19 +51,18 @@ $voto=$otros_votos->getVoto();
   public function select($otros_votos){
       $cedula=$otros_votos->getCedula();
 $fecha=$otros_votos->getFecha();
-$id=$otros_votos->getId();
 
       try {
           $sql= "SELECT `cedula`, `fecha`, `id`, `voto`"
           ."FROM `otros_votos`"
-          ."WHERE `cedula`='$cedula' AND`fecha`='$fecha' AND`id`='$id'";
+          ."WHERE `cedula`='$cedula' AND`fecha`='$fecha'";
+          $otros_votos = new Otros_votos();
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
           $otros_votos->setCedula($data[$i]['cedula']);
           $otros_votos->setFecha($data[$i]['fecha']);
           $otros_votos->setId($data[$i]['id']);
           $otros_votos->setVoto($data[$i]['voto']);
-
           }
       return $otros_votos;      } catch (SQLException $e) {
           throw new Exception('Primary key is null');

@@ -74,6 +74,26 @@ private $cn;
       }
   }
 
+  public function listByFecha($fecha){
+      $lista = array();
+      try {
+          $sql ="SELECT `nombre`, id "
+          ."FROM `otras_votaciones`"
+          ."WHERE fecha = '$fecha'";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+            $votacion= new Otras_votaciones();
+            $votacion->setnombre($data[$i]['nombre']);
+            $votacion->setId($data[$i]['id']);
+            array_push($lista,$votacion);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+
     /**
      * Cierra la conexión actual a la base de datos
      */

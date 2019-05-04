@@ -35,6 +35,7 @@ interface IRegistro_votoDao {
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
   public function select($registro_voto);
+  
     /**
      * Lista todos los objetos Registro_voto en la base de datos.
      * @return Array<Registro_voto> Puede contener los objetos consultados o estar vacío
