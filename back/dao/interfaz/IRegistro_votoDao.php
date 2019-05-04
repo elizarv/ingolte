@@ -35,6 +35,8 @@ interface IRegistro_votoDao {
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
   public function select($registro_voto);
+
+  public function countacciones($fecha);
   
     /**
      * Lista todos los objetos Registro_voto en la base de datos.
@@ -42,6 +44,8 @@ interface IRegistro_votoDao {
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
   public function listAll();
+  
+  public function listResultados($fecha);
     /**
      * Lista todos los objetos Registro_voto en la base de datos que coincidan con la llave primaria.
      * @param registro_voto objeto con la(s) llave(s) primaria(s) para consultar

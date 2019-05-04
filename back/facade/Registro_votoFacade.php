@@ -67,6 +67,14 @@ class Registro_votoFacade {
      return $result;
   }
 
+  public static function countacciones($fecha){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $registro_votoDao =$FactoryDao->getregistro_votoDao(self::getDataBaseDefault());
+     $result = $registro_votoDao->countacciones($fecha);
+     $registro_votoDao->close();
+     return $result;
+  }
+
 
   public static function selectByFecha($fecha){
       $registro = new Registro_voto();
@@ -122,6 +130,14 @@ class Registro_votoFacade {
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $registro_votoDao =$FactoryDao->getregistro_votoDao(self::getDataBaseDefault());
      $result = $registro_votoDao->listAll();
+     $registro_votoDao->close();
+     return $result;
+  }
+
+  public static function listResultados($fecha){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $registro_votoDao =$FactoryDao->getregistro_votoDao(self::getDataBaseDefault());
+     $result = $registro_votoDao->listResultados($fecha);
      $registro_votoDao->close();
      return $result;
   }

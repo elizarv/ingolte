@@ -598,3 +598,43 @@ function postConsultaOtras(result, state){
          alert("Hubo un errror interno ( u.u)\n"+result);
      }
 }
+
+function cargarConsultarResultados(){
+    cargaContenido('remp','front/views/consultarResultados.html');
+    var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+    str+='<li class="breadcrumb-item">Consultar Resultados de Votación</li>';
+    document.getElementById("breadc").innerHTML=str;
+    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Consultar Resultados de Votación</h2>';
+}
+
+function preConsultarResultados(idForm){
+    if(validarForm(idForm)){
+        var formData = $('#'+idForm).serialize();
+        enviar(formData,'back/controller/registro_voto/Registro_votoSelect.php',postConsultarResultados);
+    }
+}
+
+function postConsultarResultados(result,state){
+    if(state=="success"){
+        var json=JSON.parse(result);
+        if(json[0].msg == "Error"){
+            swal("No se encuentran registros en esta fecha", {
+                           icon: "error",
+                         });                    
+        }else{
+            formData={fecha:json[1].fecha};
+            enviar(formData,'back/controller/dompdf/reporteResultados.php',mostrarResultados);
+        }
+     }else{
+         alert("Hubo un errror interno ( u.u)\n"+result);
+     }
+}
+
+function mostrarResultados(result,state){
+    if(state=="success"){
+        window.open('back/controller/dompdf/pdfs/reporteResultados.pdf', '_blank');
+        cargarInicio();
+     }else{
+         alert("Hubo un errror interno ( u.u)\n"+result);
+     }
+}

@@ -9,6 +9,7 @@
 
 include_once realpath('../../dao/interfaz/IRegistro_votoDao.php');
 include_once realpath('../../dto/Registro_voto.php');
+include_once realpath('../../dto/Resultados.php');
 
 class Registro_votoDao implements IRegistro_votoDao{
 
@@ -72,6 +73,26 @@ $fecha=$registro_voto->getFecha();
 
           }
       return $registro_voto;   
+         } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+
+
+  public function countacciones($fecha){
+
+      try {
+          $sql= "SELECT sum(acciones) as total "
+          ."FROM `accionistas` "
+          ."WHERE `cedula` IN (SELECT cedula FROM registro_voto WHERE fecha = '$fecha')";
+          $data = $this->ejecutarConsulta($sql);
+          $resultado = new Resultados();
+          for ($i=0; $i < count($data) ; $i++) {
+            $resultado->setvotos($data[$i]['total']);
+
+          }
+      return $resultado;   
          } catch (SQLException $e) {
           throw new Exception('Primary key is null');
       return null;
@@ -150,6 +171,33 @@ $fecha=$registro_voto->getFecha();
           $registro_voto->setVoto1($data[$i]['voto1']);
 
           array_push($lista,$registro_voto);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+
+  public function listResultados($fecha){
+      $lista = array();
+      try {
+          $sql ="SELECT `numero` "
+          ."FROM `lista` "
+          ."WHERE fecha = '$fecha'";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+            $numero = $data[$i]['numero'];
+            $resultado= new Resultados();
+            
+            $sql2 = "SELECT sum(acciones) as cantidad FROM accionistas "
+            ."WHERE cedula IN (SELECT cedula FROM registro_voto WHERE voto1 = '$numero')";
+            $data2 = $this->ejecutarConsulta($sql2);
+            $total = $data2[0]['cantidad'];
+
+            $resultado->setlista($numero);
+            $resultado->setvotos($total);
+            array_push($lista,$resultado);
           }
       return $lista;
       } catch (SQLException $e) {
