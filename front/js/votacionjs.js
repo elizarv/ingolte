@@ -1,5 +1,5 @@
 function cargarVotacionPlanchas(){
-	cargaContenido('remp','front/views/votar.html');
+	cargaContenido('remp','front/views/cargarVistaCedula.html');
 	enviar("",'back/controller/lista/ListaListByFecha.php',postCargarVotacionPlanchas);//No me lo toque ( ¬.¬)
 }
 

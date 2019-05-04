@@ -56,7 +56,6 @@ function function_datatable1(){
             });
 }
 
-
 function cargarInicio(){
 	cargaContenido('remp','front/views/home.html');
 	document.getElementById("breadc").innerHTML='<li class="breadcrumb-item"><i class="material-icons">home</i></li>';
@@ -187,7 +186,30 @@ function cargarVotanteRegistro(){
     str+='<li class="breadcrumb-item">Registrar Votante</li>';
     document.getElementById("breadc").innerHTML=str;
     document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
+    enviar('','back/controller/accionistas/AccionistasList.php', postAccionistasList);
 }
+
+
+
+function postAccionistasList(result,state){
+     if(state=="success"){
+        var json=JSON.parse(result);
+         if(json[0].msg=="exito"){
+            for(var i=1; i < Object.keys(json).length; i++) {
+                var accionista = json[i];
+                str="<tr><td>"+accionista.nombre+"</td><td>"+accionista.cedula+"</td>";
+                str+='<td>'+accionista.acciones+'</td>';
+                document.getElementById("AccionistaList").innerHTML+=str;
+            }
+         }
+         function_datatable1();
+     }else{
+         alert("Hubo un errror interno ( u.u)\n"+result);
+     }
+}
+
+
+
 
 function preBuscarDatosVotante(idForm){
     if(validarForm(idForm)){
@@ -266,14 +288,13 @@ function cargarSelectAccionista(){
     enviar('','back/controller/periodo/PeriodoList.php',postPeriodoList);
 }
 
+
 function postPeriodoList(result,state){
-     //Maneje aquí la respuesta del servidor.
-     if(state=="success"){
+    if(state=="success"){
         var json=JSON.parse(result);
          if(json[0].msg=="exito"){
             for(var i=1; i < Object.keys(json).length; i++) {
                 var accionista = json[i];
-                //----------------- Para una tabla -----------------------
                 str="<tr><td>"+accionista.repre+"</td><td>"+accionista.cedula+"</td><td>"+accionista.nombre+"</td>";
                 str+="<td>"+accionista.ccrepre+"</td><td>"+accionista.num+"</td></tr>";
                 document.getElementById("AccionistaList").innerHTML+=str;
@@ -284,6 +305,7 @@ function postPeriodoList(result,state){
          alert("Hubo un errror interno ( u.u)\n"+result);
      }
 }
+
 
 function preSelectAccionista(idForm){
     if(validarForm(idForm)){

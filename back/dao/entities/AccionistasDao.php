@@ -138,7 +138,7 @@ $acciones=$accionistas->getAcciones();
           $fecha = date("Y");
           $sql ="SELECT `cedula`, `nombre`, `acciones`"
           ."FROM accionistas "
-          ."WHERE cedula NOT IN (SELECT cedula FROM periodo WHERE fecha = '$fecha')";
+          ."WHERE 1";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $accionistas= new Accionistas();
