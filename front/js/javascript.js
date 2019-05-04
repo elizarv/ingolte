@@ -1,4 +1,4 @@
-//var nombre_rep, cedula_rep, nombre_acc, cedula_acc, acciones_acc;
+var nombre_rep, cedula_rep, nombre_acc, cedula_acc, acciones_acc;
 
 
 function function_datatable2(){
@@ -223,8 +223,8 @@ function preBuscarDatosVotante(idForm){
          var json=JSON.parse(result);
          if(json[0].msg=="exito"){
                 var accionista = json[1];
-                document.getElementById("nombre_rep").value=accionista.nombre;
-                document.getElementById("cedula_rep").value=accionista.cedula;
+                nombre_rep = accionista.nombre;
+                cedula_rep = accionista.cedula;
                 cargarDatosVotante();
          }else{
                swal("El representante no se encuentra registrado!\nPor favor registrelo.", {
@@ -239,26 +239,29 @@ function preBuscarDatosVotante(idForm){
 
 function cargarDatosVotante(){
     swal({
-      position: 'top',
-      title: 'Registro de sistencia',
-      text: 'Nombre: '+document.getElementById("nombre_rep").value+'\nCedula: '+document.getElementById("cedula_rep").value,
-      icon: 'success',
-      buttons: false,
-      timer: 1000
-    });
-    cargaContenido('remp','front/views/registrarVotantes2.html');
-    var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
-    str+='<li class="breadcrumb-item">Registrar Votante</li>';
-    document.getElementById("breadc").innerHTML=str;
-    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Votante</h2>';
-    enviar('','',postCargarDatosVotante);
+      title: 'Registro de Asistencia',
+      text: 'Nombre: '+nombre_rep+'\nCedula: '+cedula_rep,
+      icon: 'warning',
+      buttons: ["Cancelar", "Aceptar"],
+      dangerMode: true
+    }).then((sure) => {
+      if (sure) {
+        cargaContenido('remp','front/views/registrarVotantes2.html');
+        var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+        str+='<li class="breadcrumb-item">Registrar Votante</li>';
+        document.getElementById("breadc").innerHTML=str;
+        document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Votante</h2>';
+        enviar('','',postCargarDatosVotante);
+      }
+    });    
+    
 }
 
 
 function postCargarDatosVotante(){    
     var str = "";
-    str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_rep").value+'</h5>';
-    str += '<h5 class="h5">CC: '+document.getElementById("cedula_rep").value+'</h5><br>';    
+    str += '<h5 class="h5">Nombre: '+nombre_rep+'</h5>';
+    str += '<h5 class="h5">CC: '+cedula_rep+'</h5><br>';    
     str +='<input type="hidden" id="cc" name="cc" value="'+document.getElementById("cedula_rep").value+'">';
     document.getElementById("datos").innerHTML = str;
 }
@@ -327,8 +330,8 @@ function preSelectAccionista(idForm){
          var json=JSON.parse(result);
          if(json[0].msg=="exito"){
                 var accionista = json[1];
-                document.getElementById("nombre_rep").value=accionista.nombre;
-                document.getElementById("cedula_rep").value=accionista.cedula;
+                nombre_rep = accionista.nombre;
+                cedula_rep = accionista.cedula;
                 cargarSelectAccionista2();
          }else{
                swal("El representante no se encuentra registrado!\nPor favor registrelo.", {
@@ -343,25 +346,27 @@ function preSelectAccionista(idForm){
 
 function cargarSelectAccionista2(){
     swal({
-      position: 'top',
       title: 'Apoderado',
-      text: 'Nombre: '+document.getElementById("nombre_rep").value+'\nCedula: '+document.getElementById("cedula_rep").value,
-      icon: 'success',
-      buttons: false,
-      timer: 1000
-    });
-    cargaContenido('remp','front/views/selectAccionista2.html');
-    var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
-    str+='<li class="breadcrumb-item">Registrar Poder</li>';
-    document.getElementById("breadc").innerHTML=str;
-    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
-    enviar('','',cargarDatosRep);
+      text: 'Nombre: '+nombre_rep+'\nCedula: '+cedula_rep,
+      icon: 'warning',
+      buttons: ["Cancelar", "Aceptar"],
+      dangerMode: true
+    }).then((sure) => {
+      if (sure) {
+        cargaContenido('remp','front/views/selectAccionista2.html');
+        var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+        str+='<li class="breadcrumb-item">Registrar Poder</li>';
+        document.getElementById("breadc").innerHTML=str;
+        document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
+        enviar('','',cargarDatosRep);
+      }
+    });      
 }
 
 function cargarDatosRep(){    
     var str="";
-    str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_rep").value+'</h5>';
-    str += '<h5 class="h5">CC: '+document.getElementById("cedula_rep").value+'</h5><br>';
+    str += '<h5 class="h5">Nombre: '+nombre_rep+'</h5>';
+    str += '<h5 class="h5">CC: '+cedula_rep+'</h5><br>';
     document.getElementById("datos").innerHTML = str;
 }
 
@@ -378,9 +383,9 @@ function preSelectAccionista2(idForm){
          var json=JSON.parse(result);
          if(json[0].msg=="exito"){
                 var accionista = json[1];
-                document.getElementById("cedula_acc").value = accionista.cedula;
-                document.getElementById("nombre_acc").value = accionista.nombre;
-                document.getElementById("acciones_acc").value = accionista.acciones;
+                cedula_acc = accionista.cedula;
+                nombre_acc = accionista.nombre;
+                acciones_acc = accionista.acciones;
                 cargarSelectAccionistaFin();
          }else{
                swal("El accionista no se encuentra registrado!", {
@@ -395,29 +400,31 @@ function preSelectAccionista2(idForm){
 
 function cargarSelectAccionistaFin(){    
     swal({
-      position: 'top',
       title: 'Poderdante',
-      text: 'Nombre: '+document.getElementById("nombre_acc").value+'\nCedula: '+document.getElementById("cedula_acc").value,
-      icon: 'success',
-      buttons: false,
-      timer: 1000
-    });
-    cargaContenido('remp','front/views/registrarRepresentante.html');
-    var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
-    str+='<li class="breadcrumb-item">Registrar Poder</li>';
-    document.getElementById("breadc").innerHTML=str;
-    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
-    enviar('','',cargarDatosFin);
+      text: 'Nombre: '+nombre_acc+'\nCedula: '+cedula_acc+'\nAcciones: '+acciones_acc,
+      icon: 'warning',
+      buttons: ["Cancelar", "Aceptar"],
+      dangerMode: true
+    }).then((sure) => {
+      if (sure) {
+        cargaContenido('remp','front/views/registrarRepresentante.html');
+        var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+        str+='<li class="breadcrumb-item">Registrar Poder</li>';
+        document.getElementById("breadc").innerHTML=str;
+        document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
+        enviar('','',cargarDatosFin);
+      }
+    });       
 }
 
 function cargarDatosFin(){
     var str = '<h4>Representante:</h4>';
-    str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_rep").value+'</h5>';
-    str += '<h5 class="h5">CC: '+document.getElementById("cedula_rep").value+'</h5><br>';
+    str += '<h5 class="h5">Nombre: '+nombre_rep+'</h5>';
+    str += '<h5 class="h5">CC: '+cedula_rep+'</h5><br>';
     str += '<h4>Accionista:</h4>';
-    str += '<h5 class="h5">Nombre: '+document.getElementById("nombre_acc").value+'</h5>';
-    str += '<h5 class="h5">CC: '+document.getElementById("cedula_acc").value+'</h5>';
-    str += '<h5 class="h5">Número de acciones: '+document.getElementById("acciones_acc").value+'</h5><br>';
+    str += '<h5 class="h5">Nombre: '+nombre_acc+'</h5>';
+    str += '<h5 class="h5">CC: '+cedula_acc+'</h5>';
+    str += '<h5 class="h5">Número de acciones: '+acciones_acc+'</h5><br>';
     document.getElementById("datos").innerHTML = str;
     var str ='<input type="hidden" id="cc_rep" name="cc_rep" value="'+document.getElementById("cedula_rep").value+'">';
     str += '<input type="hidden" id="cc_acc"  name="cc_acc" value="'+document.getElementById("cedula_acc").value+'">';
@@ -631,6 +638,7 @@ function postConsultarResultados(result,state){
 }
 
 function mostrarResultados(result,state){
+    alert(result);
     if(state=="success"){
         window.open('back/controller/dompdf/pdfs/reporteResultados.pdf', '_blank');
         cargarInicio();

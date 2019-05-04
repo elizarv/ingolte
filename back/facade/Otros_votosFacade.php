@@ -120,6 +120,16 @@ class Otros_votosFacade {
      return $result;
   }
 
+  public static function listResultados($fecha){
+     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $otros_votosDao =$FactoryDao->getotros_votosDao(self::getDataBaseDefault());
+     $result = $otros_votosDao->listResultados($fecha);
+     $otros_votosDao->close();
+     return $result;
+  }
+
+  
+
   /**
    * Lista todos los objetos Otros_votos de la base de datos a partir de cedula.
    * Puede recibir NullPointerException desde los métodos del Dao

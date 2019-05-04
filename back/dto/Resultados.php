@@ -4,6 +4,8 @@ class Resultados {
 
   private $lista;
   private $votos;
+  private $nombre;
+  private $votosno;
     /**
      * Constructor de Registro_voto
     */
@@ -38,6 +40,26 @@ class Resultados {
      */
   public function setvotos($n){
       $this->votos = $n;
+  }
+
+  public function getnombre(){
+    return $this->nombre;
+  }
+
+  public function setnombre($n){
+    $this->nombre = $n;
+  }
+
+  public function getvotosno(){
+      return $this->votosno;
+  }
+
+    /**
+     * Modifica el valor correspondiente a fecha
+     * @param fecha
+     */
+  public function setvotosno($n){
+      $this->votosno = $n;
   }
   
 }

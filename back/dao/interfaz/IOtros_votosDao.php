@@ -41,6 +41,8 @@ interface IOtros_votosDao {
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
   public function listAll();
+
+  public function listResultados($fecha);
     /**
      * Lista todos los objetos Otros_votos en la base de datos que coincidan con la llave primaria.
      * @param otros_votos objeto con la(s) llave(s) primaria(s) para consultar

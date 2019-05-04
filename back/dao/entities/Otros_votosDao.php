@@ -137,6 +137,40 @@ $id=$otros_votos->getId();
       }
   }
 
+  public function listResultados($fecha){
+      $lista = array();
+      try {
+          $sql ="SELECT id, nombre "
+          ."FROM `otras_votaciones`"
+          ."WHERE fecha = '$fecha'";
+          $data = $this->ejecutarConsulta($sql);
+          for ($i=0; $i < count($data) ; $i++) {
+              $Resultado = new Resultados();
+              $nombre = $data[$i]['nombre'];
+              $id = $data[$i]['id'];
+              $Resultado->setnombre($nombre);
+
+              $sql2 = "SELECT count(voto) as si "
+              ."FROM otros_votos WHERE fecha = '$fecha' "
+              ."AND id = '$id' AND voto ='1'";
+              $data2 = $this->ejecutarConsulta($sql2);
+              $Resultado->setvotos($data2[0]['si']);
+
+              $sql2 = "SELECT count(voto) as no "
+              ."FROM otros_votos WHERE fecha = '$fecha' "
+              ."AND id = '$id' AND voto ='0'";
+              $data2 = $this->ejecutarConsulta($sql2);
+              $Resultado->setvotosno($data2[0]['no']);
+
+               array_push($lista,$Resultado);
+          }
+      return $lista;
+      } catch (SQLException $e) {
+          throw new Exception('Primary key is null');
+      return null;
+      }
+  }
+
     /**
      * Busca un objeto Otros_votos en la base de datos.
      * @param otros_votos objeto con la(s) llave(s) primaria(s) para consultar
