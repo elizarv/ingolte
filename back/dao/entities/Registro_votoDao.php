@@ -127,7 +127,15 @@ $fecha=$registro_voto->getFecha();
       $voto1=$registro_voto->getVoto1();
 
       try {
-          $sql= "UPDATE `registro_voto` SET `fecha_lista`='$fecha' ,`voto1`='$voto1' WHERE `cedula`='$cedula' AND `fecha`='$fecha' ";
+          $sql = "SELECT cedula FROM accionistas WHERE cedula IN (SELECT cedula FROM periodo WHERE fecha = '$fecha' "
+                ."AND representante_cc = '$cedula' AND valido = '0')";
+          $data = $this->ejecutarConsulta($sql);
+          for($i=0; $i < count($data); $i++){
+            $cc = $data[$i]['cedula'];
+            $sql2 = "UPDATE registro_voto SET fecha_lista = '$fecha', voto1 = '$voto1' WHERE fecha = '$fecha' AND cedula = '$cc'";
+            $this->insertarConsulta($sql2);
+          }
+          $sql= "UPDATE `registro_voto` SET `fecha_lista`='$fecha' ,`voto1`='$voto1' WHERE `cedula`='$cedula' AND `fecha`='$fecha'";
          return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');

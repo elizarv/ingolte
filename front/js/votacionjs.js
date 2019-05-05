@@ -45,6 +45,7 @@ function preVotar(num){
 
 
 function postVotar(result, state){
+    alert(result);
         swal("Su voto ha sido registrado", {
 		      icon: "success",
 		    });
