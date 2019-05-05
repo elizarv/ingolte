@@ -50,21 +50,18 @@ private $cn;
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
   public function select($candidato){
-      $cedula=$candidato->getCedula();
-$numero=$candidato->getNumero();
-$fecha=$candidato->getFecha();
+      $numero=$candidato->getNumero();
+      $fecha=$candidato->getFecha();
+      $numero_candidato = $candidato->getnumerocandidato();
 
       try {
-          $sql= "SELECT `nombre`, `cedula`, `numero`, `fecha`"
+          $sql= "SELECT `nombre`, `cedula`"
           ."FROM `candidato`"
-          ."WHERE `cedula`='$cedula' AND`numero`='$numero' AND`fecha`='$fecha'";
+          ."WHERE `numero`='$numero' AND`fecha`='$fecha' AND numero_candidato = '$numero_candidato'";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
-          $candidato->setNombre($data[$i]['nombre']);
-          $candidato->setCedula($data[$i]['cedula']);
-          $candidato->setNumero($data[$i]['numero']);
-          $candidato->setFecha($data[$i]['fecha']);
-
+            $candidato->setNombre($data[$i]['nombre']);
+            $candidato->setCedula($data[$i]['cedula']);
           }
       return $candidato;      
     } catch (SQLException $e) {

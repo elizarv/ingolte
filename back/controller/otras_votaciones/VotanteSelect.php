@@ -6,6 +6,7 @@ include_once realpath('../../facade/Otros_votosFacade.php');
 
 $fecha = Date("Y");
 $cedula = $_POST['cc'];
+$numero = $_POST['numero'];
 
 $registro=Registro_votoFacade::select($cedula, $fecha);
 
@@ -14,7 +15,7 @@ if($registro->getcedula()==''){
 	$rta="{\"result\":\"No se encontraron registros.\"}";	
 }else{
 
-	$voto = Otros_votosFacade::select($cedula, $fecha);
+	$voto = Otros_votosFacade::select($cedula, $fecha, $numero);
 
 	if($voto->getcedula()!=''){
 		$msg="{\"msg\":\"Ya\"}";

@@ -6,6 +6,7 @@ class Resultados {
   private $votos;
   private $nombre;
   private $votosno;
+  private $blancos;
     /**
      * Constructor de Registro_voto
     */
@@ -48,6 +49,14 @@ class Resultados {
 
   public function setnombre($n){
     $this->nombre = $n;
+  }
+
+  public function getblancos(){
+    return $this->blancos;
+  }
+
+  public function setblancos($n){
+    $this->blancos = $n;
   }
 
   public function getvotosno(){

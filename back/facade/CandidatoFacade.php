@@ -71,11 +71,11 @@ class CandidatoFacade {
    * @param fecha
    * @return El objeto en base de datos o Null
    */
-  public static function select($cedula, $numero, $fecha){
+  public static function select($numero, $fecha, $num_candidato){
       $candidato = new Candidato();
-      $candidato->setCedula($cedula); 
       $candidato->setNumero($numero); 
-      $candidato->setFecha($fecha); 
+      $candidato->setFecha($fecha);
+      $candidato->setnumerocandidato($num_candidato);
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $candidatoDao =$FactoryDao->getcandidatoDao(self::getDataBaseDefault());

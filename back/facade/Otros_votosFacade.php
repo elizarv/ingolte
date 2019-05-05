@@ -58,10 +58,11 @@ class Otros_votosFacade {
    * @param id
    * @return El objeto en base de datos o Null
    */
-  public static function select($cedula, $fecha){
+  public static function select($cedula, $fecha, $numero){
       $otros_votos = new Otros_votos();
       $otros_votos->setCedula($cedula); 
       $otros_votos->setFecha($fecha); 
+      $otros_votos->setid($numero);
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $otros_votosDao =$FactoryDao->getotros_votosDao(self::getDataBaseDefault());

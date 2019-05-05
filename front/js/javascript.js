@@ -650,6 +650,7 @@ function postConsultarResultados(result,state){
 }
 
 function mostrarResultados(result,state){
+    alert(result);
     if(state=="success"){
         window.open('back/controller/dompdf/pdfs/reporteResultados.pdf', '_blank');
         cargarInicio();

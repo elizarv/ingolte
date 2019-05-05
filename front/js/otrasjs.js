@@ -15,7 +15,7 @@ function postCargarOtrasVotaciones(result, state){
                 str += '<div class="col-lg-3 hovereffect"><div class="card"><div class="card-body">';
                 str += '<h4 class="card-title">'+votacion.nombre+'</h4><div class="row "><div class="center">';
                 str += '<a href="javascript:cargarVotarOtra('+votacion.id+')"><img src="front/public/img/sino.png">';
-                str += '</a></div></div>';
+                str += '</a></div></div></div></div></div>';
             }
             document.getElementById("contenedor").innerHTML+=str;
          }else{
@@ -31,7 +31,8 @@ function cargarVotarOtra(id){
 	cargaContenido('remp','front/views/consultarCedula.html');	
 }
 
-function preVotante(idForm){
+function preVotante(idForm){    
+    document.getElementById("numero").value = numero;
     if(validarForm(idForm)){
     var formData=$('#'+idForm).serialize();
     enviar(formData,'back/controller/otras_votaciones/VotanteSelect.php',postVotante);

@@ -29,11 +29,20 @@ private $cn;
      */
   public function insert($otros_votos){
       $cedula=$otros_votos->getCedula();
-$fecha=$otros_votos->getFecha();
-$id=$otros_votos->getId();
-$voto=$otros_votos->getVoto();
+      $fecha=$otros_votos->getFecha();
+      $id=$otros_votos->getId();
+      $voto=$otros_votos->getVoto();
 
       try {
+        $sql = "SELECT cedula FROM accionistas WHERE cedula IN (SELECT cedula FROM periodo WHERE fecha = '$fecha' "
+                ."AND representante_cc = '$cedula' AND valido = '0')";
+          $data = $this->ejecutarConsulta($sql);
+          for($i=0; $i < count($data); $i++){
+            $cc = $data[$i]['cedula'];
+            $sql2 = "INSERT INTO `otros_votos`( `cedula`, `fecha`, `id`, `voto`)"
+          ."VALUES ('$cc','$fecha','$id','$voto')";
+            $this->insertarConsulta($sql2);
+          }        
           $sql= "INSERT INTO `otros_votos`( `cedula`, `fecha`, `id`, `voto`)"
           ."VALUES ('$cedula','$fecha','$id','$voto')";
           return $this->insertarConsulta($sql);
@@ -50,19 +59,20 @@ $voto=$otros_votos->getVoto();
      */
   public function select($otros_votos){
       $cedula=$otros_votos->getCedula();
-$fecha=$otros_votos->getFecha();
+      $fecha=$otros_votos->getFecha();
+      $id = $otros_votos->getid();
 
       try {
           $sql= "SELECT `cedula`, `fecha`, `id`, `voto`"
           ."FROM `otros_votos`"
-          ."WHERE `cedula`='$cedula' AND`fecha`='$fecha'";
+          ."WHERE `cedula`='$cedula' AND`fecha`='$fecha' AND id = '$id'";
           $otros_votos = new Otros_votos();
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
-          $otros_votos->setCedula($data[$i]['cedula']);
-          $otros_votos->setFecha($data[$i]['fecha']);
-          $otros_votos->setId($data[$i]['id']);
-          $otros_votos->setVoto($data[$i]['voto']);
+            $otros_votos->setCedula($data[$i]['cedula']);
+            $otros_votos->setFecha($data[$i]['fecha']);
+            $otros_votos->setId($data[$i]['id']);
+            $otros_votos->setVoto($data[$i]['voto']);
           }
       return $otros_votos;      } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -150,19 +160,31 @@ $id=$otros_votos->getId();
               $id = $data[$i]['id'];
               $Resultado->setnombre($nombre);
 
-              $sql2 = "SELECT count(voto) as si "
+              $sql2 = "SELECT sum(acciones) as si "
+              ."FROM accionistas WHERE cedula IN (SELECT cedula "
               ."FROM otros_votos WHERE fecha = '$fecha' "
-              ."AND id = '$id' AND voto ='1'";
+              ."AND id = '$id' AND voto ='1')";
               $data2 = $this->ejecutarConsulta($sql2);
-              $Resultado->setvotos($data2[0]['si']);
+              if($data2[0]['si']=='')$Resultado->setvotos('0');
+              else $Resultado->setvotos($data2[0]['si']);
 
-              $sql2 = "SELECT count(voto) as no "
+              $sql2 = "SELECT sum(acciones) as no "
+              ."FROM accionistas WHERE cedula IN (SELECT cedula "
               ."FROM otros_votos WHERE fecha = '$fecha' "
-              ."AND id = '$id' AND voto ='0'";
+              ."AND id = '$id' AND voto ='2')";
               $data2 = $this->ejecutarConsulta($sql2);
-              $Resultado->setvotosno($data2[0]['no']);
+              if($data2[0]['no']=='')$Resultado->setvotosno('0');
+              else $Resultado->setvotosno($data2[0]['no']);
 
-               array_push($lista,$Resultado);
+              $sql2 = "SELECT sum(acciones) as blanco "
+              ."FROM accionistas WHERE cedula IN (SELECT cedula "
+              ."FROM otros_votos WHERE fecha = '$fecha' "
+              ."AND id = '$id' AND voto ='0')";
+              $data2 = $this->ejecutarConsulta($sql2);
+              
+              if($data2[0]['blanco']=='')$Resultado->setblancos('0');
+              else $Resultado->setblancos($data2[0]['blanco']);
+              array_push($lista,$Resultado);
           }
       return $lista;
       } catch (SQLException $e) {
