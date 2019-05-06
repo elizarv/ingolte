@@ -23,11 +23,11 @@ $tot_rep = 0;
 
 foreach ($list as $obj => $poder) {	
 	$content .= '<tr><td>';
-	$content .= utf8_encode($poder->getnombre())." (".$poder->getacciones().")</td>";
+	$content .= utf8_decode($poder->getnombre())." (".$poder->getacciones().")</td>";
 	$total = 0;
 	$content .= '<td>';
 	foreach($poder->getpoderdantes() as $obj => $accionista){
-		$content .= utf8_encode($accionista->getnombre());
+		$content .= utf8_decode($accionista->getnombre());
 		$content .=' ('.$accionista->getacciones().')<br>';
 		$total += $accionista->getacciones();
 	}
@@ -39,14 +39,14 @@ foreach ($list as $obj => $poder) {
 }
 
 foreach($listAccionistas as $obj => $accionista){
-		$content .= '<tr><td>'.utf8_encode($accionista->getnombre()).' ('.$accionista->getacciones().')</td>';
+		$content .= '<tr><td>'.utf8_decode($accionista->getnombre()).' ('.$accionista->getacciones().')</td>';
 		$content .= '<td></td><td style="text-align:center;">0</td>';
 		$content .= '<td style="text-align:center;">'.$accionista->getacciones().'</td>';		
 		$tot_acc += $accionista->getacciones();
 }
 
 foreach($listOtros as $obj => $accionista){
-		$content .= '<tr><td>'.utf8_encode($accionista->getnombre()).' ('.$accionista->getacciones().')</td>';
+		$content .= '<tr><td>'.utf8_decode($accionista->getnombre()).' ('.$accionista->getacciones().')</td>';
 		$content .= '<td></td><td style="text-align:center;">0</td>';
 		$content .= '<td style="text-align:center;">'.$accionista->getacciones().'</td>';		
 		$tot_acc += $accionista->getacciones();
