@@ -19,6 +19,7 @@ if($periodo->getcedula()!=""){
 		exit;
 	}else{
 		PeriodoFacade::update($cedula, $fecha, $valido);
+		$registro = Registro_votoFacade::select($cedula, $fecha);
 		if($registro->getcedula()==""){
 			Registro_votoFacade::insert($cedula);
 		}
