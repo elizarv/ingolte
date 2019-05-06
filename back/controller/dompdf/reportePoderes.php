@@ -17,11 +17,11 @@ $tot_rep = 0;
 
 foreach ($list as $obj => $poder) {	
 	$content .= '<tr><td>';
-	$content .= utf8_encode($poder->getnombre())." (".$poder->getacciones().")</td>";
+	$content .= utf8_decode($poder->getnombre())." (".$poder->getacciones().")</td>";
 	$total = 0;
 	$content .= '<td>';
 	foreach($poder->getpoderdantes() as $obj => $accionista){
-		$content .= utf8_encode($accionista->getnombre());
+		$content .= utf8_decode($accionista->getnombre());
 		$content .=' ('.$accionista->getacciones().')<br>';
 		$total += $accionista->getacciones();
 	}
