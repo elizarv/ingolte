@@ -59,11 +59,8 @@ private $cn;
             }else{
               $sql= "INSERT INTO `periodo`(`fecha`,`cedula`, `representante_cc`, num_radicado)"
               ."VALUES ('$fecha','$cedula','$representante_cc','$num_radicado')";            
-            }
-          
-        
-          return $this->insertarConsulta($sql);
-        
+            }       
+          return $this->insertarConsulta($sql);       
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
       }
