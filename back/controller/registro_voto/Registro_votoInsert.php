@@ -17,10 +17,11 @@ if($periodo->getcedula()!=""){
 	if($periodo->getvalido()=='1'){
 		echo "ya";
 		exit;
+	}else{
+		PeriodoFacade::update($cedula, $fecha, $valido);
+		echo "update";
+		exit;
 	}
-	PeriodoFacade::update($cedula, $fecha, $valido);
-	echo "true";
-	exit;
 }
 $registro = Registro_votoFacade::select($cedula, $fecha);
 if($registro->getcedula()==""){

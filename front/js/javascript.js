@@ -287,6 +287,15 @@ function postVotanteInsert(result,state){
                            icon: "error",
                          });
                          cargarInicio();
+                    }else if(result=="update"){
+                        swal("Se ha eliminado el poder de sus acciones\n", {
+                           icon: "warning",
+                        }).then((sure) => {
+                          swal("Registro exitoso!", {
+                               icon: "success",
+                             });
+                        }); 
+                         cargarInicio();
                     }else{
                         alert("Hubo un errror en la inserción ( u.u)\n"+result);
                     }

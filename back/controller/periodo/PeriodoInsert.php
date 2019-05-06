@@ -15,7 +15,7 @@ $representante_cc = $_POST['cc_rep'];
 $num_radicado = $_POST['num_radicado'];
 $rta = PeriodoFacade::insert($accionistas, $representante_cc, $num_radicado);
 
-if( $rta== "Update"){
+if($rta== "Update"){
 	echo "update";
 	exit;
 }
