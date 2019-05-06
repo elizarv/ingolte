@@ -38,7 +38,7 @@ $content .= '</tbody></table></body></html>';
 //echo $content;exit;
 
 $dompdf = new Dompdf();
-$dompdf->loadHtml(utf8_decode($content));
+$dompdf->loadHtml(utf8_encode($content));
 $dompdf->render();
 $pdf = $dompdf->output();
 file_put_contents("pdfs/reportepoderes.pdf", $pdf);
