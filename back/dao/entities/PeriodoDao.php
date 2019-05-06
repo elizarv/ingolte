@@ -97,10 +97,10 @@ public function update($periodo){
 
   public function select($periodo){
       $cedula=$periodo->getCedula();
-$fecha=$periodo->getFecha();
+      $fecha=$periodo->getFecha();
 
       try {
-          $sql= "SELECT `cedula`, `fecha`"
+          $sql= "SELECT `cedula`, `fecha`, valido "
           ."FROM `periodo`"
           ."WHERE `cedula`='$cedula' AND`fecha`='$fecha'";
           $data = $this->ejecutarConsulta($sql);
@@ -108,7 +108,7 @@ $fecha=$periodo->getFecha();
           for ($i=0; $i < count($data) ; $i++) {
           $periodo->setCedula($data[$i]['cedula']);
           $periodo->setFecha($data[$i]['fecha']);
-
+          $periodo->setvalido($data[$i]['valido']);
           }
       return $periodo;   
          } catch (SQLException $e) {

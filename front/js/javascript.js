@@ -282,8 +282,13 @@ function postVotanteInsert(result,state){
                            icon: "success",
                          });
                          cargarInicio();
+                    }else if(result=="ya"){
+                       swal("Usted ya se encuentra registrado", {
+                           icon: "error",
+                         });
+                         cargarInicio();
                     }else{
-                       alert("Hubo un errror en la inserción ( u.u)\n"+result);
+                        alert("Hubo un errror en la inserción ( u.u)\n"+result);
                     }
 
        }else{
@@ -650,7 +655,6 @@ function postConsultarResultados(result,state){
 }
 
 function mostrarResultados(result,state){
-    alert(result);
     if(state=="success"){
         window.open('back/controller/dompdf/pdfs/reporteResultados.pdf', '_blank');
         cargarInicio();
