@@ -34,7 +34,7 @@ private $cn;
       try {
           $sql ="SELECT `cedula`"
           ."FROM accionistas "
-          ."WHERE cedula IN (SELECT cedula FROM periodo WHERE fecha = '$fecha' AND representante_cc = '$cedula')";
+          ."WHERE cedula IN (SELECT cedula FROM periodo WHERE fecha = '$fecha' AND representante_cc = '$cedula' AND valido = '0')";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
             $cc = $data[$i]['cedula'];
