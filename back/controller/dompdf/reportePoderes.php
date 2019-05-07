@@ -32,7 +32,9 @@ foreach ($list as $obj => $poder) {
 	$tot_acc += $total + $poder->getacciones();
 }
 $content .= '<tr><td colspan="2" style="font-size:16px; text-align:center"><b>Total</b></td><td style="text-align:center;">'.$tot_rep.'</td><td style="text-align:center;">'.$tot_acc.'</td></tr>';
-$content .= '</tbody></table></body></html>';
+$content .= '</tbody></table>';
+$content .= '<h3 style="text-align:center; font-size:18px">Asistentes: '.(sizeof($list)).'</h3>';
+$content .= '</body></html>';
 
 
 //echo $content;exit;

@@ -110,7 +110,7 @@ $content .= '</tbody></table></body></html>';
 //echo $content;exit;
 
 $dompdf = new Dompdf();
-$dompdf->loadHtml(utf8_decode($content));
+$dompdf->loadHtml(($content));
 $dompdf->render();
 $pdf = $dompdf->output();
 file_put_contents("pdfs/reporteResultados.pdf", $pdf);

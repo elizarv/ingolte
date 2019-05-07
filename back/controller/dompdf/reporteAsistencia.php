@@ -23,11 +23,11 @@ $tot_rep = 0;
 
 foreach ($list as $obj => $poder) {	
 	$content .= '<tr><td>';
-	$content .= utf8_decode($poder->getnombre())." (".$poder->getacciones().")</td>";
+	$content .= ($poder->getnombre())." (".$poder->getacciones().")</td>";
 	$total = 0;
 	$content .= '<td>';
 	foreach($poder->getpoderdantes() as $obj => $accionista){
-		$content .= utf8_decode($accionista->getnombre());
+		$content .= ($accionista->getnombre());
 		$content .=' ('.$accionista->getacciones().')<br>';
 		$total += $accionista->getacciones();
 	}
@@ -39,27 +39,29 @@ foreach ($list as $obj => $poder) {
 }
 
 foreach($listAccionistas as $obj => $accionista){
-		$content .= '<tr><td>'.utf8_decode($accionista->getnombre()).' ('.$accionista->getacciones().')</td>';
+		$content .= '<tr><td>'.($accionista->getnombre()).' ('.$accionista->getacciones().')</td>';
 		$content .= '<td></td><td style="text-align:center;">0</td>';
 		$content .= '<td style="text-align:center;">'.$accionista->getacciones().'</td>';		
 		$tot_acc += $accionista->getacciones();
 }
 
 foreach($listOtros as $obj => $accionista){
-		$content .= '<tr><td>'.utf8_decode($accionista->getnombre()).' ('.$accionista->getacciones().')</td>';
+		$content .= '<tr><td>'.($accionista->getnombre()).' ('.$accionista->getacciones().')</td>';
 		$content .= '<td></td><td style="text-align:center;">0</td>';
 		$content .= '<td style="text-align:center;">'.$accionista->getacciones().'</td>';		
 		$tot_acc += $accionista->getacciones();
 }
 
 $content .= '<tr><td colspan="2" style="font-size:16px; text-align:center"><b>Total</b></td><td style="text-align:center;">'.$tot_rep.'</td><td style="text-align:center;">'.$tot_acc.'</td></tr>';
-$content .= '</tbody></table></body></html>';
+$content .= '</tbody></table>';
 
+$content .= '<h3 style="text-align:center; font-size:18px">Asistentes: '.(sizeof($list)+sizeof($listAccionistas)+sizeof($listOtros)).'</h3>';
 
+$content .= '</body></html>';
 //echo $content;exit;
 
 $dompdf = new Dompdf();
-$dompdf->loadHtml(utf8_decode($content));
+$dompdf->loadHtml(($content));
 $dompdf->render();
 $pdf = $dompdf->output();
 file_put_contents("pdfs/reporteAsistencia.pdf", $pdf);
