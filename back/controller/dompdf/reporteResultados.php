@@ -78,7 +78,7 @@ foreach ($ganadores as $key => $val) {
 //FIN BUSCAR GANADORES
 $content .= '<h3 style="text-align:center; font-size:18px">Ganadores</h3>';
 $content .= '<table border=1 cellspacing=0 cellpadding=2 style="margin: 0 auto"><thead style="font-size:16px; text-align:center"><tr>';
-$content .= '<th>Nombre</th><th>Cedula</th><th>Plancha</th></tr></thead>';
+$content .= '<th>Nombre</th><th>Suplente</th><th>Plancha</th></tr></thead>';
 $content .= '<tbody>';
 
 
@@ -110,7 +110,7 @@ $content .= '</tbody></table></body></html>';
 //echo $content;exit;
 
 $dompdf = new Dompdf();
-$dompdf->loadHtml(($content));
+$dompdf->loadHtml($content);
 $dompdf->render();
 $pdf = $dompdf->output();
 file_put_contents("pdfs/reporteResultados.pdf", $pdf);

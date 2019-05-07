@@ -197,7 +197,7 @@ public function update($periodo){
               $poder->setCedula($data[$i]['cedula']);
               $poder->setNombre($data[$i]['nombre']);
               $poder->setacciones($data[$i]['acciones']);
-              $sql2 = "SELECT a.nombre, a.cedula, a.acciones FROM accionistas a, periodo p WHERE p.cedula = a.cedula AND p.representante_cc = '$repre' AND p.fecha = '$fecha' AND p.valido = '0'";
+              $sql2 = "SELECT nombre, cedula, acciones FROM accionistas WHERE cedula IN (SELECT cedula FROM periodo WHERE representante_cc = '$repre' AND fecha = '$fecha' AND valido = '0')";
               $data2 = $this->ejecutarConsulta($sql2);
               $lista2 = array();
               for($j=0; $j < count($data2); $j++){
