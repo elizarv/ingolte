@@ -21,7 +21,7 @@ interface IAccionistasDao {
      * @param accionistas objeto con la información a modificar
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
-  public function update($accionistas);
+  public function update($accionistas, $cc);
     /**
      * Elimina un objeto Accionistas en la base de datos.
      * @param accionistas objeto con la(s) llave(s) primaria(s) para consultar

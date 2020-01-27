@@ -95,17 +95,15 @@ private $cn;
      * @return  Valor de la llave primaria 
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
-  public function update($accionistas){
-      $cedula=$accionistas->getCedula();
-$nombre=$accionistas->getNombre();
-$apellidos=$accionistas->getApellidos();
-$acciones=$accionistas->getAcciones();
-
+  public function update($accionistas, $cc){
+    $cedula=$accionistas->getCedula();
+    $nombre=$accionistas->getNombre();
+    $acciones=$accionistas->getAcciones();
       try {
-          $sql= "UPDATE `accionistas` SET`cedula`='$cedula' ,`nombre`='$nombre' ,`apellidos`='$apellidos' ,`acciones`='$acciones' WHERE `cedula`='$cedula' ";
+          $sql= "UPDATE `accionistas` SET`cedula`='$cedula' ,`nombre`='$nombre' ,`acciones`='$acciones' WHERE `cedula`='$cc'";
          return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
-          throw new Exception('Primary key is null');
+          throw null;
       }
   }
 
@@ -251,6 +249,7 @@ $acciones=$accionistas->getAcciones();
           $sentencia = null;
           return $this->cn->lastInsertId();
     }
+    
       public function ejecutarConsulta($sql){
           $this->cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $sentencia=$this->cn->prepare($sql);

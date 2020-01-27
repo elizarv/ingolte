@@ -1,4 +1,4 @@
-var nombre_rep, cedula_rep, nombre_acc, cedula_acc, acciones_acc;
+var nombre_rep, cedula_rep, nombre_acc, cedula_acc, acciones_acc, acciones;
 
 
 function function_datatable2(){
@@ -61,6 +61,99 @@ function cargarInicio(){
 	document.getElementById("breadc").innerHTML='<li class="breadcrumb-item"><i class="material-icons">home</i></li>';
 	document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Inicio</h2>';
 	enviar("",'back/controller/usuario/UsuarioGetLogged.php',postgetLogged);//No me lo toque ( ¬.¬)
+}
+
+
+function cargarBuscarDatos(){
+    cargaContenido('remp','front/views/buscarAccionista.html');
+    var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+    str+='<li class="breadcrumb-item">Buscar Accionista</li>';
+    document.getElementById("breadc").innerHTML=str;
+    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Buscar</h2>';
+}
+
+
+function preCargarDatos(idForm){
+    if(validarForm(idForm)){
+    var formData=$('#'+idForm).serialize();
+    enviar(formData,'back/controller/accionistas/AccionistaSelect.php',postCargarDatos);
+    }else{
+        alert("Debe llenar los campos requeridos");
+    }
+}
+
+
+ function postCargarDatos(result,state){
+     if(state=="success"){
+         var json=JSON.parse(result);
+         if(json[0].msg=="exito"){
+                var accionista = json[1];
+                nombre_rep = accionista.nombre;
+                cedula_rep = accionista.cedula;
+                acciones = accionista.acciones;
+                cargarDatosAccionista();
+         }else{
+               swal("El representante no se encuentra registrado!\nPor favor registrelo.", {
+                   icon: "error",
+                 });
+                 cargarInicio();
+         }
+     }else{
+         alert("Hubo un errror interno ( u.u)\n"+result);
+     }
+}
+
+function cargarDatosAccionista(){
+    cargaContenido('remp','front/views/editarAccionista.html');
+    var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+    str+='<li class="breadcrumb-item">Editar Accionista</li>';
+    document.getElementById("breadc").innerHTML=str;
+    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Guardar Cambios</h2>';
+    swal({
+      title: 'Editar Datos',
+      text: 'Nombre: '+nombre_rep+'\nCedula: '+cedula_rep,
+      icon: 'warning',
+      buttons: ["Cancelar", "Aceptar"],
+      dangerMode: true
+    }).then((sure) => {
+      if (sure) {
+        enviar('','',postCargarDatosAccionista);
+      }else{
+        cargarBuscarDatos();
+      }
+    });    
+}
+
+function postCargarDatosAccionista(){
+    document.getElementById("nombre").value = nombre_rep;
+    document.getElementById("cedula").value = cedula_rep;
+    document.getElementById("acciones").value = acciones;
+    document.getElementById("cc").value = cedula_rep;
+}
+
+function preAccionistaUpdate(idForm){
+   if(validarForm(idForm)){
+    var formData=$('#'+idForm).serialize();
+    enviar(formData,'back/controller/accionistas/AccionistaUpdate.php',postAccionistaUpdate);
+    }else{
+        alert("Debe llenar los campos requeridos");
+    } 
+}
+
+function postAccionistaUpdate(result, state){   
+     if(state=="success"){
+                    if(result=="true"){
+                       swal("Actualización exitosa!", {
+                           icon: "success",
+                         });
+                         cargarInicio();
+                    }else{
+                       alert("Hubo un errror en la inserción ( u.u)\n"+result);
+                    }
+
+       }else{
+            alert("Hubo un errror interno ( u.u)\n"+result);
+            }
 }
 
 function cargarRegistroAccionista(){
@@ -186,10 +279,17 @@ function cargarVotanteRegistro(){
     str+='<li class="breadcrumb-item">Registrar Votante</li>';
     document.getElementById("breadc").innerHTML=str;
     document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
-    enviar('','back/controller/accionistas/AccionistasList.php', postAccionistasList);
 }
 
 
+function listar(){
+    cargaContenido('remp','front/views/listar.html');
+    var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
+    str+='<li class="breadcrumb-item">Listar Accionistas</li>';
+    document.getElementById("breadc").innerHTML=str;
+    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Lista de accionistas</h2>';
+    enviar('','back/controller/accionistas/AccionistasList.php', postAccionistasList);
+}
 
 function postAccionistasList(result,state){
      if(state=="success"){
