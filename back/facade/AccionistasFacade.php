@@ -84,15 +84,15 @@ class AccionistasFacade {
    * @param apellidos
    * @param acciones
    */
-  public static function update($cedula, $nombre, $apellidos, $acciones){
+  public static function update($cedula, $nombre, $acciones, $cc){
       $accionistas = self::select($cedula);
+      $accionistas->setCedula($cedula);
       $accionistas->setNombre($nombre); 
-      $accionistas->setApellidos($apellidos); 
       $accionistas->setAcciones($acciones); 
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $accionistasDao =$FactoryDao->getaccionistasDao(self::getDataBaseDefault());
-     $accionistasDao->update($accionistas);
+     $accionistasDao->update($accionistas, $cc);
      $accionistasDao->close();
   }
 

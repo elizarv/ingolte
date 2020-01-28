@@ -1,0 +1,34 @@
+<section class="forms">
+            <div class="container-fluid">
+              <div class="row">
+       <!-- Form Registrar Usuarios -->
+                <div class="col-lg-4">
+                  <div class="card">
+                   <div class="card-header d-flex align-items-center">
+                      <h3 class="h4">Editar Accionista</h3>
+                    </div>
+                    <div class="card-body">
+                      <form id="editarAccionista" action="javascript:preAccionistaUpdate('editarAccionista')" method="post">
+                        <div class="form-group">
+                          <label class="form-control-label">Nombre</label>
+                          <input id="nombre" name="nombre" type="text" placeholder="Ingrese el nombre y appellidos del accionista" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                          <label class="form-control-label">Cédula</label>
+                          <input id="cedula" name="cedula" type="text" placeholder="Ingrese el número de cédula del accionista" class="form-control" required>
+                          <input id="cc" name="cc" type="hidden" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <label class="form-control-label">Acciones</label>
+                          <input id="acciones" name="acciones" type="number" placeholder="Ingrese el número de acciones" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                          <input type="submit" value="Guarcar Cambios" class="btn btn-primary">
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
