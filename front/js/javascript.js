@@ -599,6 +599,22 @@ function postConsultarPoderes(result,state){
      }
 }
 
+
+function listarAccionistas(){
+    enviar('','back/controller/dompdf/listar.php',postListarAccionistas);
+}
+
+function postListarAccionistas(result, state){
+    alert(result);
+    alert(state);
+    if(state=="success"){
+        window.open('back/controller/dompdf/pdfs/listaAccionistas.pdf', '_blank');
+        cargarInicio();
+     }else{
+         alert("Hubo un errror interno ( u.u)\n"+result);
+     }
+}
+
 function cargarotra(){
     cargaContenido('remp','front/views/registrarVotacion.html');
     var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'

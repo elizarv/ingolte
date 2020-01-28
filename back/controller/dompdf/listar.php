@@ -31,7 +31,6 @@ $content .= '<tr><td colspan="2" style="font-size:16px; text-align:center"><b>To
 $content .= '</tbody></table>';
 
 $content .= '</body></html>';
-//echo $content;exit;
 
 $dompdf = new Dompdf();
 $dompdf->loadHtml(($content));
