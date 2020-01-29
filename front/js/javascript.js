@@ -605,8 +605,6 @@ function listarAccionistas(){
 }
 
 function postListarAccionistas(result, state){
-    alert(result);
-    alert(state);
     if(state=="success"){
         window.open('back/controller/dompdf/pdfs/listaAccionistas.pdf', '_blank');
         cargarInicio();

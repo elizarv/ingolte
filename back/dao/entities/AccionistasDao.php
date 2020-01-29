@@ -136,7 +136,7 @@ private $cn;
           $fecha = date("Y");
           $sql ="SELECT `cedula`, `nombre`, `acciones`"
           ."FROM accionistas "
-          ."WHERE 1";
+          ."order by nombre";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $accionistas= new Accionistas();
