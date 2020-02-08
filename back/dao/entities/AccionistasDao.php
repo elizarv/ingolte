@@ -30,11 +30,10 @@ private $cn;
   public function insert($accionistas){
       $cedula=$accionistas->getCedula();
       $nombre=$accionistas->getNombre();
-      $acciones=$accionistas->getAcciones();
 
       try {
           $sql= "INSERT INTO `accionistas`( `cedula`, `nombre`, `acciones`)"
-          ."VALUES ('$cedula','$nombre','$acciones')";
+          ."VALUES ('$cedula','$nombre','0')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -136,7 +135,11 @@ private $cn;
           $fecha = date("Y");
           $sql ="SELECT `cedula`, `nombre`, `acciones`"
           ."FROM accionistas "
+<<<<<<< HEAD
           ."order by nombre asc";
+=======
+          ."order by nombre";
+>>>>>>> 5c24acc9bc608cb8f863382095c3f90e06e334fa
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $accionistas= new Accionistas();
