@@ -135,7 +135,7 @@ public function update($periodo){
       $lista = array();
       try {
           $fecha = date("Y");
-          $sql ="SELECT a.nombre, a.cedula as c1, p.num_radicado, p.representante_cc as c2, (select a2.nombre from accionistas a2, periodo p2 where a2.cedula = p2.representante_cc and p2.cedula = c1)as n2 from accionistas a, periodo p where a.cedula = p.cedula AND fecha = '$fecha'";
+          $sql ="SELECT a.nombre, a.cedula as c1, p.num_radicado, p.representante_cc as c2, (select a2.nombre from accionistas a2, periodo p2 where a2.cedula = p2.representante_cc and p2.cedula = c1 and fecha = '$fecha')as n2 from accionistas a, periodo p where a.cedula = p.cedula AND fecha = '$fecha'";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $periodo= new Periodo();
