@@ -278,7 +278,7 @@ function cargarVotanteRegistro(){
     var str='<li class="breadcrumb-item"><a href="javascript:cargarInicio()"><i class="material-icons">home</i></a></li>'
     str+='<li class="breadcrumb-item">Registrar Votante</li>';
     document.getElementById("breadc").innerHTML=str;
-    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
+    document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Asistente</h2>';
 }
 
 
