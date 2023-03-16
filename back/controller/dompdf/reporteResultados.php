@@ -8,7 +8,7 @@ include_once realpath('../../dto/ganadores.php');
 $fecha = $_POST['fecha'];
 $list=Registro_votoFacade::listResultados($fecha);
 $accionestotales = Registro_votoFacade::countacciones($fecha);
-$otros = Otros_votosFacade::listResultados($fecha);
+// $otros = Otros_votosFacade::listResultados($fecha);
 $array = array();
 
 require_once 'autoload.inc.php';
@@ -16,7 +16,7 @@ use Dompdf\Dompdf;
 
 $content = '<html>';
 $content .= '<head><meta charset="UTF-8"><title>Resultados de Votaciones '.$fecha.'</title></head>';
-$content .= '<body><h1 style="text-align:center; font-size:20px">Resultados de Votaciones '.$fecha.'</h1>';
+$content .= '<body><h1 style="text-align:center; font-size:20px">Resultados de Votaciones '.$fecha.'</h1><br></br><br></br>';
 
 if(sizeof($list) > 0){
 	$content .= '<table border=1 cellspacing=0 cellpadding=2 style="margin: 0 auto"><thead style="font-size:16px; text-align:center" ><tr><th>Plancha</th><th>Acciones a favor</th></tr></thead>';
@@ -77,7 +77,7 @@ if(sizeof($list) > 0){
 		}
 	}
 	//FIN BUSCAR GANADORES
-	$content .= '<h3 style="text-align:center; font-size:18px">Ganadores</h3>';
+	$content .= '<h3 style="text-align:center; font-size:18px">Ganadores</h3><br></br><br></br><br></br>';
 	$content .= '<table border=1 cellspacing=0 cellpadding=2 style="margin: 0 auto"><thead style="font-size:16px; text-align:center"><tr>';
 	$content .= '<th>Nombre</th><th>Suplente</th><th>Plancha</th></tr></thead>';
 	$content .= '<tbody>';
@@ -96,7 +96,7 @@ if(sizeof($list) > 0){
 
 
 
-$content .= '<h3 style="text-align:center; font-size:18px">Resultados de Otras Votaciones</h3>';
+$content .= '<h3 style="text-align:center; font-size:18px">Resultados de Otras Votaciones</h3><br></br><br></br><br></br>';
 $content .= '<table border=1 cellspacing=0 cellpadding=2 style="margin: 0 auto"><thead style="font-size:16px; text-align:center"><tr>';
 $content .= '<th>Nombre</th><th>Votos Si</th><th>Votos No</th><th>Votos en blanco</th><th>Sin votar</th><th>Total</th></tr></thead>';
 $content .= '<tbody>';

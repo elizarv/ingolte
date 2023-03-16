@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2019 a las 15:29:32
--- Versión del servidor: 10.1.9-MariaDB
--- Versión de PHP: 5.6.15
+-- Tiempo de generación: 16-03-2023 a las 17:04:56
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -30,7 +31,7 @@ CREATE TABLE `accionistas` (
   `cedula` varchar(100) NOT NULL,
   `nombre` varchar(500) NOT NULL,
   `acciones` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `accionistas`
@@ -143,6 +144,7 @@ INSERT INTO `accionistas` (`cedula`, `nombre`, `acciones`) VALUES
 ('1152190887', 'VARGAS MEDINA MARIA CATALINA', 7),
 ('1193521580', 'GOMEZ FRANCO ANDRES FELIPE', 12),
 ('120838', 'ALTERIO BASSO GAETANO ITALO', 3),
+('1234', 'fulanito de tal', 0),
 ('12579724', 'BAYTER LAMUS EDGAR', 43),
 ('13170033', 'LLANOS RODRIGUEZ ALFONSO', 43),
 ('13170175', 'EUSSE CALDERON MIGUEL', 55),
@@ -767,6 +769,7 @@ INSERT INTO `accionistas` (`cedula`, `nombre`, `acciones`) VALUES
 ('5541463', 'MARTINEZ GOMEZ JULIAN', 55),
 ('5547302', 'GONZALEZ RUEDA ALFONSO', 8),
 ('5562133', 'AROCHA CAMPEROS GUSTAVO', 51),
+('5678', 'fulanita', 0),
 ('5796214-3', 'SERRANO GOMEZ ANTONIO MARIA', 86),
 ('5811771', 'MARTINEZ ALVIS ARCESIO', 51),
 ('5946887', 'DIAZ OLAYA JORGE ERNESTO', 48),
@@ -1105,9 +1108,9 @@ INSERT INTO `accionistas` (`cedula`, `nombre`, `acciones`) VALUES
 ('88268511', 'ALVARADO MORA HUGO OSWALDO', 43),
 ('88268527', 'PORRAS RAMIREZ FABIAN ALCIDES', 4),
 ('88268593', 'ABRAJIM RINCON MARIO', 10),
-('88268684', 'PEREZ MEDINA FRANCISCO JOSE', 43),
-('88269151', 'VERGEL MARTINEZ JUAN MANUEL', 15);
+('88268684', 'PEREZ MEDINA FRANCISCO JOSE', 43);
 INSERT INTO `accionistas` (`cedula`, `nombre`, `acciones`) VALUES
+('88269151', 'VERGEL MARTINEZ JUAN MANUEL', 15),
 ('88269692', 'PINZON SUAREZ JUAN DIEGO', 2),
 ('88274437', 'PEREZ FERRER JUAN CAMILO', 43),
 ('88275314', 'COLMENARES REY RAUL ANDRES', 47),
@@ -1166,8 +1169,16 @@ CREATE TABLE `candidato` (
   `nombre` varchar(100) NOT NULL,
   `cedula` varchar(20) NOT NULL,
   `numero` int(11) NOT NULL,
-  `fecha` year(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `fecha` year(4) NOT NULL,
+  `numero_candidato` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `candidato`
+--
+
+INSERT INTO `candidato` (`nombre`, `cedula`, `numero`, `fecha`, `numero_candidato`) VALUES
+('fulano', 'otro fulano', 1, 2023, 1);
 
 -- --------------------------------------------------------
 
@@ -1178,7 +1189,46 @@ CREATE TABLE `candidato` (
 CREATE TABLE `lista` (
   `fecha` year(4) NOT NULL,
   `numero` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `lista`
+--
+
+INSERT INTO `lista` (`fecha`, `numero`) VALUES
+(2023, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `otras_votaciones`
+--
+
+CREATE TABLE `otras_votaciones` (
+  `nombre` varchar(50) NOT NULL,
+  `fecha` year(4) NOT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `otras_votaciones`
+--
+
+INSERT INTO `otras_votaciones` (`nombre`, `fecha`, `id`) VALUES
+('nueva', 2023, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `otros_votos`
+--
+
+CREATE TABLE `otros_votos` (
+  `cedula` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `fecha` year(4) NOT NULL,
+  `voto` tinyint(1) DEFAULT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1189,8 +1239,17 @@ CREATE TABLE `lista` (
 CREATE TABLE `periodo` (
   `fecha` year(4) NOT NULL,
   `cedula` varchar(20) NOT NULL,
-  `representante_cc` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `representante_cc` varchar(20) DEFAULT NULL,
+  `valido` tinyint(1) DEFAULT NULL,
+  `num_radicado` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `periodo`
+--
+
+INSERT INTO `periodo` (`fecha`, `cedula`, `representante_cc`, `valido`, `num_radicado`) VALUES
+(2023, '5678', '1234', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1203,7 +1262,14 @@ CREATE TABLE `registro_voto` (
   `fecha` year(4) NOT NULL,
   `fecha_lista` year(4) DEFAULT NULL,
   `voto1` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `registro_voto`
+--
+
+INSERT INTO `registro_voto` (`cedula`, `fecha`, `fecha_lista`, `voto1`) VALUES
+('1234', 2023, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -1229,10 +1295,24 @@ ALTER TABLE `lista`
   ADD PRIMARY KEY (`fecha`,`numero`);
 
 --
+-- Indices de la tabla `otras_votaciones`
+--
+ALTER TABLE `otras_votaciones`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `otros_votos`
+--
+ALTER TABLE `otros_votos`
+  ADD PRIMARY KEY (`id`,`cedula`),
+  ADD KEY `FK_cedula` (`cedula`);
+
+--
 -- Indices de la tabla `periodo`
 --
 ALTER TABLE `periodo`
   ADD PRIMARY KEY (`cedula`,`fecha`),
+  ADD UNIQUE KEY `radicado` (`num_radicado`),
   ADD KEY `FK_rep` (`representante_cc`);
 
 --
@@ -1243,6 +1323,16 @@ ALTER TABLE `registro_voto`
   ADD KEY `fecha_lista` (`fecha_lista`,`voto1`);
 
 --
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `otras_votaciones`
+--
+ALTER TABLE `otras_votaciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -1251,6 +1341,13 @@ ALTER TABLE `registro_voto`
 --
 ALTER TABLE `candidato`
   ADD CONSTRAINT `FK_id` FOREIGN KEY (`fecha`,`numero`) REFERENCES `lista` (`fecha`, `numero`);
+
+--
+-- Filtros para la tabla `otros_votos`
+--
+ALTER TABLE `otros_votos`
+  ADD CONSTRAINT `FK_cedula` FOREIGN KEY (`cedula`) REFERENCES `accionistas` (`cedula`),
+  ADD CONSTRAINT `FK_id_otros_votos` FOREIGN KEY (`id`) REFERENCES `otras_votaciones` (`id`);
 
 --
 -- Filtros para la tabla `periodo`
@@ -1264,6 +1361,7 @@ ALTER TABLE `periodo`
 --
 ALTER TABLE `registro_voto`
   ADD CONSTRAINT `registro_voto_ibfk_1` FOREIGN KEY (`fecha_lista`,`voto1`) REFERENCES `lista` (`fecha`, `numero`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

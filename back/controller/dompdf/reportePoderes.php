@@ -9,7 +9,7 @@ use Dompdf\Dompdf;
 
 $content = '<html>';
 $content .= '<head><meta charset="UTF-8"><title>Listado de Poderes '.$fecha.'</title></head>';
-$content .= '<body><h1 style="text-align:center; font-size:20px">Listado de Poderes '.$fecha.'</h1>';
+$content .= '<body><h1 style="text-align:center; font-size:20px">Listado de Poderes '.$fecha.'</h1><br></br><br></br>';
 $content .= '<table border=1 cellspacing=0 cellpadding=2 style="font-size:12px"><thead style="font-size:13px; text-align:center" ><tr><th>Apoderado</th><th>Poderdantes</th><th>Acciones representadas</th><th>Acciones totales</th></tr></thead>';
 $content .= '<tbody>';
 $tot_acc = 0;

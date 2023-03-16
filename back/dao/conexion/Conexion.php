@@ -15,16 +15,16 @@ class Conexion implements IConexion{
      function __construct($gestor) {
            $this->cnx = null ;
            switch ($gestor) {
-             case "FactoryDao::MYSQL_FACTORY":
+             case FactoryDao::$MYSQL_FACTORY:
                $this->gestor="mysql";
                break;
-             case "FactoryDao::POSTGRESQL_FACTORY":
+             case FactoryDao::$POSTGRESQL_FACTORY:
                $this->gestor="pgsql";
                break;
-             case "FactoryDao::ORACLE_FACTORY":
+             case FactoryDao::$ORACLE_FACTORY:
                $this->gestor="oci";
                break;
-             case "FactoryDao::DERBY_FACTORY":
+             case FactoryDao::$DERBY_FACTORY:
                $this->gestor="odbc";
                break;
              default:
