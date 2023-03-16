@@ -8,7 +8,7 @@ include_once realpath('../../dto/ganadores.php');
 $fecha = $_POST['fecha'];
 $list=Registro_votoFacade::listResultados($fecha);
 $accionestotales = Registro_votoFacade::countacciones($fecha);
-// $otros = Otros_votosFacade::listResultados($fecha);
+$otros = Otros_votosFacade::listResultados($fecha);
 $array = array();
 
 require_once 'autoload.inc.php';
