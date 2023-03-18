@@ -13,12 +13,25 @@ include_once realpath('../../dto/Accionistas.php');
 class AccionistasDao implements IAccionistasDao{
 
 private $cn;
+private $accionistasArray;
 
     /**
      * Inicializa una única conexión a la base de datos, que se usará para cada consulta.
      */
+
     function __construct($conexion) {
             $this->cn =$conexion;
+            $this->fillArray();
+    }
+
+    public function fillArray() {
+        $list = $this->listAll();
+        $this->accionistasArray = array();
+        for ($i=0; $i < count($list); $i++) { 
+            $accionista = $list[i];
+            $this->accionistasArray[$accionista->getCedula()] = $accionista;
+            var_dump($this->accionistasArray);
+        }
     }
 
     /**
@@ -35,7 +48,10 @@ private $cn;
       try {
           $sql= "INSERT INTO `accionistas`( `cedula`, `nombre`, `acciones`)"
           ."VALUES ('$cedula','$nombre','$acciones')";
-          return $this->insertarConsulta($sql);
+          $result = $this->insertarConsulta($sql);
+          $this->accionistasArray[$cedula] = $accionistas;
+          var_dump($this->accionistasArray);
+          return $result;
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
       }
@@ -47,48 +63,57 @@ private $cn;
      * @return El objeto consultado o null
      * @throws NullPointerException Si los objetos correspondientes a las llaves foraneas son null
      */
-  public function select($accionistas){
-      $cedula=$accionistas->getCedula();
 
-      try {
-          $sql= "SELECT `cedula`, `nombre`, `acciones`"
-          ."FROM `accionistas`"
-          ."WHERE `cedula`='$cedula'";
-          $data = $this->ejecutarConsulta($sql);
-          $accionistas = new Accionistas();
-          for ($i=0; $i < count($data) ; $i++) {
-          $accionistas->setCedula($data[$i]['cedula']);
-          $accionistas->setNombre($data[$i]['nombre']);
-          $accionistas->setAcciones($data[$i]['acciones']);
+//   public function select($accionistas){
+//       $cedula=$accionistas->getCedula();
 
-          }
-      return $accionistas;     
-       } catch (SQLException $e) {
-          throw new Exception('Primary key is null');
-      return null;
-      }
-  }
+//       try {
+//           $sql= "SELECT `cedula`, `nombre`, `acciones`"
+//           ."FROM `accionistas`"
+//           ."WHERE `cedula`='$cedula'";
+//           $data = $this->ejecutarConsulta($sql);
+//           $accionistas = new Accionistas();
+//           for ($i=0; $i < count($data) ; $i++) {
+//           $accionistas->setCedula($data[$i]['cedula']);
+//           $accionistas->setNombre($data[$i]['nombre']);
+//           $accionistas->setAcciones($data[$i]['acciones']);
+//           }
+//       return $accionistas;     
+//        } catch (SQLException $e) {
+//           throw new Exception('Primary key is null');
+//       return null;
+//       }
+//   }
 
-  public function select2($accionistas){
-      $cedula=$accionistas->getCedula();
+    public function select($accionistas){
+        $cedula=$accionistas->getCedula();
+        return $this->accionistasArray[$cedula];
+    }
 
-      try {
-          $sql= "SELECT `cedula`, `nombre`, `acciones`"
-          ."FROM `accionistas`"
-          ."WHERE `cedula`='$cedula'";
-          $data = $this->ejecutarConsulta($sql);
-          for ($i=0; $i < count($data) ; $i++) {
-          $accionistas->setCedula($data[$i]['cedula']);
-          $accionistas->setNombre($data[$i]['nombre']);
-          $accionistas->setAcciones($data[$i]['acciones']);
+//   public function select2($accionistas){
+//       $cedula=$accionistas->getCedula();
 
-          }
-      return $accionistas;     
-       } catch (SQLException $e) {
-          throw new Exception('Primary key is null');
-      return null;
-      }
-  }
+//       try {
+//           $sql= "SELECT `cedula`, `nombre`, `acciones`"
+//           ."FROM `accionistas`"
+//           ."WHERE `cedula`='$cedula'";
+//           $data = $this->ejecutarConsulta($sql);
+//           for ($i=0; $i < count($data) ; $i++) {
+//           $accionistas->setCedula($data[$i]['cedula']);
+//           $accionistas->setNombre($data[$i]['nombre']);
+//           $accionistas->setAcciones($data[$i]['acciones']);
+//           }
+//       return $accionistas;     
+//        } catch (SQLException $e) {
+//           throw new Exception('Primary key is null');
+//       return null;
+//       }
+//   }
+
+    public function select2($accionistas){
+        $cedula=$accionistas->getCedula();
+        return $this->accionistasArray[$cedula];
+    }
 
     /**
      * Modifica un objeto Accionistas en la base de datos.
@@ -102,7 +127,9 @@ private $cn;
     $acciones=$accionistas->getAcciones();
       try {
           $sql= "UPDATE `accionistas` SET`cedula`='$cedula' ,`nombre`='$nombre' ,`acciones`='$acciones' WHERE `cedula`='$cc'";
-         return $this->insertarConsulta($sql);
+         $result = $this->insertarConsulta($sql);
+         $this->accionistasArray[$cedula] = $accionistas;
+         return $result;
       } catch (SQLException $e) {
           throw null;
       }
@@ -116,10 +143,11 @@ private $cn;
      */
   public function delete($accionistas){
       $cedula=$accionistas->getCedula();
-
       try {
           $sql ="DELETE FROM `accionistas` WHERE `cedula`='$cedula'";
-          return $this->insertarConsulta($sql);
+          $result = $this->insertarConsulta($sql);
+          unset($array[$this->accionistasArray[$cedula]]);
+          return $result;
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
       }
@@ -132,6 +160,9 @@ private $cn;
      */
   public function listAll(){
       $lista = array();
+      if(count($this->accionistasArray) != 0){
+        return $this->$accionistasArray;
+      }
       try {
           $fecha = date("Y");
           $sql ="SELECT `cedula`, `nombre`, `acciones`"
@@ -143,7 +174,6 @@ private $cn;
           $accionistas->setCedula($data[$i]['cedula']);
           $accionistas->setNombre($data[$i]['nombre']);
           $accionistas->setAcciones($data[$i]['acciones']);
-
           array_push($lista,$accionistas);
           }
       return $lista;
