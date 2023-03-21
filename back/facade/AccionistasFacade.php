@@ -14,6 +14,15 @@ require_once realpath('../../dao/interfaz/IAccionistasDao.php');
 
 class AccionistasFacade {
 
+   private static $FactoryDao;
+
+   public static function getFactoryDao() {
+      if (self::$FactoryDao == null){
+         self::$FactoryDao = new FactoryDao(self::getGestorDefault());
+      }
+      return self::$FactoryDao;
+   }
+
   /**
    * Para su comodidad, defina aquí el gestor de conexión predilecto para esta entidad
    * @return idGestor Devuelve el identificador del gestor de conexión
@@ -117,10 +126,15 @@ class AccionistasFacade {
    * @return $result Array con los objetos Accionistas en base de datos o Null
    */
   public static function listAll(){
-     $FactoryDao=new FactoryDao(self::getGestorDefault());
+     $FactoryDao= self::getFactoryDao();
+   //   $accionistas_json = file_get_contents(realpath("../../../db/db.json"));
+   //   $decoded_json = json_decode($accionistas_json, true);
+   //   if ($decoded_json != null) return $decoded_json;
      $accionistasDao =$FactoryDao->getaccionistasDao(self::getDataBaseDefault());
      $result = $accionistasDao->listAll();
-     $accionistasDao->close();
+   //   $json = json_encode(array($result));
+   //   file_put_contents("../../../db/db.json", $json);
+   //   $accionistasDao->close();
      return $result;
   }
 

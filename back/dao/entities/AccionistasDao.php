@@ -18,19 +18,17 @@ private $accionistasArray;
     /**
      * Inicializa una única conexión a la base de datos, que se usará para cada consulta.
      */
-
+    
     function __construct($conexion) {
-            $this->cn =$conexion;
-            $this->fillArray();
+        $this->cn =$conexion;
+        $this->fillArray();
     }
 
     public function fillArray() {
-        $list = $this->listAll();
         $this->accionistasArray = array();
-        for ($i=0; $i < count($list); $i++) { 
-            $accionista = $list[i];
-            $this->accionistasArray[$accionista->getCedula()] = $accionista;
-            var_dump($this->accionistasArray);
+        $list = $this->listAll();
+        foreach ($list as $obj => $Accionistas) {	
+            $this->accionistasArray[$Accionistas->getCedula()] = $Accionistas;
         }
     }
 
@@ -160,8 +158,8 @@ private $accionistasArray;
      */
   public function listAll(){
       $lista = array();
-      if(count($this->accionistasArray) != 0){
-        return $this->$accionistasArray;
+      if(!empty($this->accionistasArray)){
+        return $this->accionistasArray;
       }
       try {
           $fecha = date("Y");
@@ -171,10 +169,10 @@ private $accionistasArray;
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $accionistas= new Accionistas();
-          $accionistas->setCedula($data[$i]['cedula']);
-          $accionistas->setNombre($data[$i]['nombre']);
-          $accionistas->setAcciones($data[$i]['acciones']);
-          array_push($lista,$accionistas);
+                $accionistas->setCedula($data[$i]['cedula']);
+                $accionistas->setNombre($data[$i]['nombre']);
+                $accionistas->setAcciones($data[$i]['acciones']);
+                array_push($lista,$accionistas);
           }
       return $lista;
       } catch (SQLException $e) {

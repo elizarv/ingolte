@@ -8,8 +8,8 @@
 //    El gran hermano te vigila  \\
 include_once realpath('../../facade/AccionistasFacade.php');
 
+$rta = "";
 $list=AccionistasFacade::listAll();
-$rta="";
 foreach ($list as $obj => $Accionistas) {	
 	$rta.="{
  	    \"cedula\":\"{$Accionistas->getcedula()}\",

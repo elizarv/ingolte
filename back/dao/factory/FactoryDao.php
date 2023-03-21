@@ -19,6 +19,14 @@ class FactoryDao implements IFactoryDao{
     public static $ORACLE_FACTORY = 2;
     public static $DERBY_FACTORY = 3;
 
+    private $AccionistasDao;
+    private $PeriodoDao;
+    private $CandidatoDao;
+    private $Registro_votoDao;
+    private $ListaDao;
+    private $Otros_votosDao;
+    private $Otras_votacionesDao;
+
      public function __construct($gestor){
         $this->conn=new Conexion($gestor);
      }
@@ -28,6 +36,7 @@ class FactoryDao implements IFactoryDao{
      * @return instancia de AccionistasDao
      */
      public function getAccionistasDao($dbName){
+        if ($this->AccionistasDao != null) return $this->AccionistasDao;
         return new AccionistasDao($this->conn->obtener($dbName));
     }
      /**
