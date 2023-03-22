@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-03-2023 a las 15:25:40
+-- Tiempo de generación: 22-03-2023 a las 15:32:40
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.0.25
 
@@ -1219,14 +1219,6 @@ CREATE TABLE `otras_votaciones` (
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `otras_votaciones`
---
-
-INSERT INTO `otras_votaciones` (`nombre`, `fecha`, `id`) VALUES
-('asamblea general', 2023, 3),
-('otra', 2023, 4);
-
 -- --------------------------------------------------------
 
 --
@@ -1253,13 +1245,6 @@ CREATE TABLE `periodo` (
   `valido` tinyint(1) DEFAULT NULL,
   `num_radicado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Volcado de datos para la tabla `periodo`
---
-
-INSERT INTO `periodo` (`fecha`, `cedula`, `representante_cc`, `valido`, `num_radicado`) VALUES
-(2023, '1004966412', '1000181157', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1363,6 +1348,7 @@ ALTER TABLE `periodo`
 -- Filtros para la tabla `registro_voto`
 --
 ALTER TABLE `registro_voto`
+  ADD CONSTRAINT `FK_cedula_registro` FOREIGN KEY (`cedula`) REFERENCES `accionistas` (`cedula`),
   ADD CONSTRAINT `registro_voto_ibfk_1` FOREIGN KEY (`fecha_lista`,`voto1`) REFERENCES `lista` (`fecha`, `numero`);
 COMMIT;
 
