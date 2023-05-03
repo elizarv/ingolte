@@ -1,5 +1,10 @@
 var nombre_rep, cedula_rep, nombre_acc, cedula_acc, acciones_acc, acciones;
 
+var accionistas_list = new Object();
+var accionistas_table = "";
+var accionistas_update = new Object();
+var accionistas_insert = new Object();
+
 
 function function_datatable2(){
     $('#myTable tfoot th').each( function () {
@@ -288,27 +293,65 @@ function listar(){
     str+='<li class="breadcrumb-item">Listar Accionistas</li>';
     document.getElementById("breadc").innerHTML=str;
     document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Lista de accionistas</h2>';
-    enviar('','back/controller/accionistas/AccionistasList.php', postAccionistasList);
+    if (!Object.keys(accionistas_list).length){
+        enviar('','back/controller/accionistas/AccionistasList.php', postAccionistasList);
+    }else if(Object.keys(accionistas_update).length || Object.keys(accionistas_list).length){
+        enviar('', '',postAccionistasListCacheAddUpdates);
+    }else{
+        enviar('', '',postAccionistasListCache);
+    }
 }
 
 function postAccionistasList(result,state){
      if(state=="success"){
         var json=JSON.parse(result);
          if(json[0].msg=="exito"){
-            for(var i=1; i < Object.keys(json).length; i++) {
-                var accionista = json[i];
-                str="<tr><td>"+accionista.nombre+"</td><td>"+accionista.cedula+"</td>";
-                str+='<td>'+accionista.acciones+'</td>';
-                document.getElementById("AccionistaList").innerHTML+=str;
+             for(var i=1; i < Object.keys(json).length; i++) {
+                 for(var j in json[i]){
+                    var accionista = json[i][j];
+                    accionistas_list[j] = accionista;
+                    str="<tr><td>"+accionista.nombre+"</td><td>"+accionista.cedula+"</td>";
+                    str+='<td>'+accionista.acciones+'</td>';
+                    document.getElementById("AccionistaList").innerHTML+=str;
+                 }
+                }
             }
-         }
+         accionistas_table = document.getElementById("AccionistaList").innerHTML;
          function_datatable1();
      }else{
          alert("Hubo un errror interno ( u.u)\n"+result);
      }
 }
 
+function postAccionistasListCacheAddUpdates(){
+    Object.keys(accionistas_update).forEach(cedula => {
+        var accionista = accionistas_update[cedula];
+        accionistas_list[cedula] = accionista;
+    });
+    Object.keys(accionistas_insert).forEach(cedula => {
+        var accionista = accionistas_insert[cedula];
+        accionistas_list[cedula] = accionista;
+        var accionista = accionistas_list[cedula];
+        str="<tr><td>"+accionista.nombre+"</td><td>"+accionista.cedula+"</td>";
+        str+='<td>'+accionista.acciones+'</td>';
+        document.getElementById("AccionistaList").innerHTML+=str;
+    });
+    Object.keys(accionistas_list).forEach(cedula => {
+        var accionista = accionistas_list[cedula];
+        str="<tr><td>"+accionista.nombre+"</td><td>"+accionista.cedula+"</td>";
+        str+='<td>'+accionista.acciones+'</td>';
+        document.getElementById("AccionistaList").innerHTML+=str;
+    });
+    accionistas_table = document.getElementById("AccionistaList").innerHTML;
+    function_datatable1();
+    accionistas_update = new Object;
+    accionistas_insert = new Object;
+}
 
+function postAccionistasListCache() {
+    document.getElementById("AccionistaList").innerHTML=accionistas_table;
+    function_datatable1();
+}
 
 
 function preBuscarDatosVotante(idForm){
