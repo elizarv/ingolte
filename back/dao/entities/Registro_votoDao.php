@@ -31,11 +31,12 @@ private $cn;
   public function insert($registro_voto){
       $cedula=$registro_voto->getCedula();
       $fecha =$registro_voto->getfecha();
-      try {
+      try { 
           $sql ="SELECT `cedula`"
           ."FROM accionistas "
           ."WHERE cedula IN (SELECT cedula FROM periodo WHERE fecha = '$fecha' AND representante_cc = '$cedula' AND valido = '0')";
           $data = $this->ejecutarConsulta($sql);
+
           for ($i=0; $i < count($data) ; $i++) {
             $cc = $data[$i]['cedula'];
             $sql= "INSERT INTO `registro_voto`( `cedula`, `fecha`)"
@@ -58,9 +59,26 @@ private $cn;
      */
   public function select($registro_voto){
       $cedula=$registro_voto->getCedula();
-$fecha=$registro_voto->getFecha();
+    $fecha=$registro_voto->getFecha();
 
       try {
+
+        $sql="SELECT sum(acciones) as suma "
+          ."FROM accionistas "
+          ."WHERE cedula IN (SELECT cedula FROM periodo WHERE fecha = '$fecha' AND representante_cc = '$cedula' AND valido = '0')";
+          $suma = $this->ejecutarConsulta($sql);
+
+          $sql="SELECT acciones "
+          ."FROM accionistas "
+          ."WHERE cedula = '$cedula'";
+          $acciones = $this->ejecutarConsulta($sql);
+
+          if($suma[0][0] + $acciones[0][0] == 0) {
+              $registro_voto = new Registro_voto();
+              $registro_voto->setCedula("no");
+              return $registro_voto;
+          }
+            
           $sql= "SELECT `cedula`, `fecha`, `voto1`"
           ."FROM `registro_voto`"
           ."WHERE `cedula`='$cedula' AND`fecha`='$fecha'";

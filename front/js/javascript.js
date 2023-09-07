@@ -420,32 +420,37 @@ function preVotanteInsert(idForm){
 
 function postVotanteInsert(result,state){
     if(state=="success"){
-                    if(result=="true"){
-                       swal("Registro exitoso!", {
-                           icon: "success",
-                         });
-                         cargarInicio();
-                    }else if(result=="ya"){
-                       swal("Usted ya se encuentra registrado", {
-                           icon: "error",
-                         });
-                         cargarInicio();
-                    }else if(result=="update"){
-                        swal("Se ha eliminado el poder de sus acciones\n", {
-                           icon: "warning",
-                        }).then((sure) => {
-                          swal("Registro exitoso!", {
-                               icon: "success",
-                             });
-                        }); 
-                         cargarInicio();
-                    }else{
-                        alert("Hubo un errror en la inserción ( u.u)\n"+result);
-                    }
+        if(result=="true"){
+            swal("Registro exitoso!",{
+                icon: "success",
+                });
+                cargarInicio();
+        }else if(result=="ya"){
+            swal("Usted ya se encuentra registrado", {
+                icon: "error",
+                });
+                cargarInicio();
+        }else if(result=="update"){
+            swal("Se ha eliminado el poder de sus acciones\n", {
+                icon: "warning",
+            }).then((sure) => {
+                swal("Registro exitoso!", {
+                    icon: "success",
+                    });
+            }); 
+                cargarInicio();
+        }else if(result == "no"){
+            swal("No se puede registrar la asistencia.\n No tiene acciones ni poderes registrados.\n", {
+                icon: "error",
+            });
+                cargarInicio();
+        }else{
+            alert("Hubo un errror en la inserción ( u.u)\n"+result);
+        }
 
-       }else{
-            alert("Hubo un errror interno ( u.u)\n"+result);
-            }
+    }else{
+        alert("Hubo un errror interno ( u.u)\n"+result);
+    }
 }
 
 
