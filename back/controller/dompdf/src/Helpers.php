@@ -820,7 +820,7 @@ class Helpers
      * @param int $maxlen (ignored if curl is used)
      * @return bool|array
      */
-    public static function getFileContent($uri, $context = null, $offset = 0, $maxlen = null)
+    public static function getFileContent($uri, $context = s, $offset = 0, $maxlen = null)
     {
         $result = false;
         $headers = null;
@@ -834,9 +834,9 @@ class Helpers
                 $uri = Helpers::encodeURI($uri);
             }
             if (isset($maxlen)) {
-                $result = file_get_contents($uri, null, $context, $offset, $maxlen);
+                $result = file_get_contents($uri, false, $context, $offset, $maxlen);
             } else {
-                $result = file_get_contents($uri, null, $context, $offset);
+                $result = file_get_contents($uri, false, $context, $offset);
             }
             if (isset($http_response_header)) {
                 $headers = $http_response_header;

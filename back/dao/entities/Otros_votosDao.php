@@ -159,31 +159,44 @@ $id=$otros_votos->getId();
               $nombre = $data[$i]['nombre'];
               $id = $data[$i]['id'];
               $Resultado->setnombre($nombre);
+              $list_votos = array();
 
-              $sql2 = "SELECT sum(acciones) as si "
-              ."FROM accionistas WHERE cedula IN (SELECT cedula "
-              ."FROM otros_votos WHERE fecha = '$fecha' "
-              ."AND id = '$id' AND voto ='1')";
-              $data2 = $this->ejecutarConsulta($sql2);
-              if($data2[0]['si']=='')$Resultado->setvotos('0');
-              else $Resultado->setvotos($data2[0]['si']);
+              for($opcion=1; $opcion < 5; $opcion++){
+                  $sql2 = "SELECT sum(acciones) as total "
+                  ."FROM accionistas WHERE cedula IN (SELECT cedula "
+                  ."FROM otros_votos WHERE fecha = '$fecha' "
+                  ."AND id = '$id' AND voto ='$opcion')";
+                  $data2 = $this->ejecutarConsulta($sql2);
+                  if($data2[0]['total']=='')array_push($list_votos, 0);
+                  else array_push($list_votos, $data2[0]['total']);
+              }
+              $Resultado->setResultados($list_votos);
 
-              $sql2 = "SELECT sum(acciones) as no "
-              ."FROM accionistas WHERE cedula IN (SELECT cedula "
-              ."FROM otros_votos WHERE fecha = '$fecha' "
-              ."AND id = '$id' AND voto ='2')";
-              $data2 = $this->ejecutarConsulta($sql2);
-              if($data2[0]['no']=='')$Resultado->setvotosno('0');
-              else $Resultado->setvotosno($data2[0]['no']);
 
-              $sql2 = "SELECT sum(acciones) as blanco "
-              ."FROM accionistas WHERE cedula IN (SELECT cedula "
-              ."FROM otros_votos WHERE fecha = '$fecha' "
-              ."AND id = '$id' AND voto ='0')";
-              $data2 = $this->ejecutarConsulta($sql2);
+            //   $sql2 = "SELECT sum(acciones) as no "
+            //   ."FROM accionistas WHERE cedula IN (SELECT cedula "
+            //   ."FROM otros_votos WHERE fecha = '$fecha' "
+            //   ."AND id = '$id' AND voto ='2')";
+            //   $data2 = $this->ejecutarConsulta($sql2);
+            //   if($data2[0]['no']=='')$Resultado->setvotosno('0');
+            //   else $Resultado->setvotosno($data2[0]['no']);
+
+            //   $sql2 = "SELECT sum(acciones) as no "
+            //   ."FROM accionistas WHERE cedula IN (SELECT cedula "
+            //   ."FROM otros_votos WHERE fecha = '$fecha' "
+            //   ."AND id = '$id' AND voto ='3')";
+            //   $data2 = $this->ejecutarConsulta($sql2);
+            //   if($data2[0]['no']=='')$Resultado->setvotos3('0');
+            //   else $Resultado->setvotos3($data2[0]['no']);
+
+            //   $sql2 = "SELECT sum(acciones) as blanco "
+            //   ."FROM accionistas WHERE cedula IN (SELECT cedula "
+            //   ."FROM otros_votos WHERE fecha = '$fecha' "
+            //   ."AND id = '$id' AND voto ='0')";
+            //   $data2 = $this->ejecutarConsulta($sql2);
               
-              if($data2[0]['blanco']=='')$Resultado->setblancos('0');
-              else $Resultado->setblancos($data2[0]['blanco']);
+            //   if($data2[0]['blanco']=='')$Resultado->setblancos('0');
+            //   else $Resultado->setblancos($data2[0]['blanco']);
               array_push($lista,$Resultado);
           }
       return $lista;

@@ -7,6 +7,7 @@ class Resultados {
   private $nombre;
   private $votosno;
   private $blancos;
+  private $resultados;
     /**
      * Constructor de Registro_voto
     */
@@ -70,6 +71,18 @@ class Resultados {
   public function setvotosno($n){
       $this->votosno = $n;
   }
+
+  public function getResultados(){
+    return $this->resultados;
+}
+
+  /**
+   * Modifica el valor correspondiente a fecha
+   * @param fecha
+   */
+public function setResultados($n){
+    $this->resultados = $n;
+}
   
 }
 //That´s all folks!
