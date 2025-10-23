@@ -7,8 +7,8 @@ include_once realpath('../../dto/ganadores.php');
 
 $fecha = $_POST['fecha'];
 $list=Registro_votoFacade::listResultados($fecha);
-$accionestotales = Registro_votoFacade::countacciones($fecha);
-$otros = Otros_votosFacade::listResultados($fecha);
+// $accionestotales = Registro_votoFacade::countacciones($fecha);
+// $otros = Otros_votosFacade::listResultados($fecha);
 $array = array();
 
 require_once 'autoload.inc.php';
@@ -24,6 +24,7 @@ $content .= '<body><h1 style="text-align:center; font-size:20px">Resultados de V
 // 	$total = 0;
 // 	$votosblanco = 0;
 // 	foreach ($list as $obj => $resultado) {	
+// 		// if ($resultado->getlista() > 3) continue; // CAMBIAR AL NUMERO DE PLANCHAS
 // 		if($resultado->getlista() == '0'){
 // 			$votosblanco = $resultado->getvotos();
 // 		}else{
@@ -93,31 +94,51 @@ $content .= '<body><h1 style="text-align:center; font-size:20px">Resultados de V
 
 // }
 
+// // FIN VOTACIONES DE PLANCHAS
 
-
-
+// INICIO VOTACIONES SI - NO
 $content .= '<h3 style="text-align:center; font-size:18px">Resultados de Otras Votaciones</h3><br></br><br></br><br></br>';
 $content .= '<table border=1 cellspacing=0 cellpadding=2 style="margin: 0 auto"><thead style="font-size:16px; text-align:center"><tr>';
-$content .= '<th>Nombre</th><th>Sin cambio</th><th>Reforma Junta</th><th>Reforma Dr. Perez</th><th>Reforma Dr. Aldo</th><th>Total</th></tr></thead>';
+$content .= '<th>Nombre</th><th>Votos Si</th><th>Votos No</th><th>Votos en blanco</th><th>Sin votar</th><th>Total</th></tr></thead>';
 $content .= '<tbody>';
 
-$idx = 1;
+$resultadoRevisorFiscal = [];
 
 foreach ($otros as $obj => $resultado) {
 	$resultadosArray = $resultado->getResultados();	
+	// if ($resultado->getId() == 27) {
+	// 	$resultadoRevisorFiscal = $resultadosArray;
+	// 	continue;	
+	// }
+	$tot = ($accionestotales->getvotos()-$resultadosArray[0]-$resultadosArray[1]-$resultadosArray[2]);
+	if ($tot == $accionestotales->getvotos()) continue;
 	$content .= '<tr><td style="text-align:center;">'.$resultado->getnombre().'</td>';
-	$content .= '<td style="text-align:center;">'.$resultadosArray[0].'</td>';
 	$content .= '<td style="text-align:center;">'.$resultadosArray[1].'</td>';
 	$content .= '<td style="text-align:center;">'.$resultadosArray[2].'</td>';
-	$content .= '<td style="text-align:center;">'.$resultadosArray[3].'</td>';
-	// $tot = ($accionestotales->getvotos()-$resultadosArray[1]-$resultadosArray[2]-$resultadosArray[3]-$resultadosArray[4]);
-	// $content .= '<td style="text-align:center;">'.$tot.'</td>';
+	$content .= '<td style="text-align:center;">'.$resultadosArray[0].'</td>';
+	$content .= '<td style="text-align:center;">'.$tot.'</td>';
 	$content .= '<td style="text-align:center;">'.$accionestotales->getvotos().'</td></tr>';
-	if ($idx == 1) break;
-	$idx++;
 }
 
-$content .= '</tbody></table></body></html>';
+$content .= '</tbody></table>';
+// FIN VOTACIONES SI - NO
+
+// // INICIO VOTACIONES REVISOR FISCAL
+// $tot = ($accionestotales->getvotos()-$resultadoRevisorFiscal[0]-$resultadoRevisorFiscal[1]-$resultadoRevisorFiscal[2]-$resultadoRevisorFiscal[3]);
+// if ($tot != $accionestotales->getvotos()) {
+// 	$content .= '<h3 style="text-align:center; font-size:18px">Resultados Votación Revisor Fiscal</h3><br></br><br></br><br></br>';
+// 	$content .= '<table border=1 cellspacing=0 cellpadding=2 style="margin: 0 auto"><thead style="font-size:16px; text-align:center">'
+// 	$content .= '<tr><th>Alfredo Rojas</th><th>'.$resultadoRevisorFiscal[1].'</th>';
+// 	$content .= '<tr><th>Diani Lorena Rojas Ortega</th><th>'.$resultadoRevisorFiscal[2].'</th>';
+// 	$content .= '<tr><th>Javier Casanova Pradilla</th><th>'.$resultadoRevisorFiscal[3].'</th>';
+// 	$content .= '<tr><th>Votos en blanco</th><th>'.$resultadoRevisorFiscal[0].'</th>';
+// 	$content .= '<tr><th>Sin Votar</th><th>'.$tot.'</th>';
+// 	$content .= '<tr><th>Total</th><th>'.$accionestotales->getvotos().'</th>';
+// 	$content .= '</tr></thead><tbody></table>';
+// }
+// // FIN VOTACIONES REVISOR
+
+$content .= '</body></html>';
 
 //echo $content;exit;
 

@@ -2,6 +2,7 @@
 
 class Resultados {
 
+  private $id;
   private $lista;
   private $votos;
   private $nombre;
@@ -12,6 +13,18 @@ class Resultados {
      * Constructor de Registro_voto
     */
      public function __construct(){}
+
+     public function getid(){
+      return $this->id;
+  }
+
+    /**
+     * Modifica el valor correspondiente a cedula
+     * @param cedula
+     */
+  public function setid($n){
+      $this->id = $n;
+  }
 
     /**
      * Devuelve el valor correspondiente a cedula

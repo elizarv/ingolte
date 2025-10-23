@@ -20,7 +20,6 @@ $content .= '<table border=1 cellspacing=0 cellpadding=2 style="font-size:12px">
 $content .= '<tbody>';
 $tot_acc = 0;
 $tot_rep = 0;
-
 foreach ($list as $obj => $poder) {	
 	$content .= '<tr><td>';
 	$content .= ($poder->getnombre())." (".$poder->getacciones().")</td>";
@@ -55,7 +54,11 @@ foreach($listOtros as $obj => $accionista){
 $content .= '<tr><td colspan="2" style="font-size:16px; text-align:center"><b>Total</b></td><td style="text-align:center;">'.$tot_rep.'</td><td style="text-align:center;">'.$tot_acc.'</td></tr>';
 $content .= '</tbody></table>';
 
-$content .= '<h3 style="text-align:center; font-size:18px">Asistentes: '.(sizeof($list)+sizeof($listAccionistas)+sizeof($listOtros)).'</h3>';
+$porcentaje_acc = round($tot_acc/43704*100, 4);
+$tot_asistentes = sizeof($list)+sizeof($listAccionistas)+sizeof($listOtros);
+
+$content .= '<h3 style="text-align:center; font-size:18px">'.$tot_acc.' accion'.($tot_acc > 1 ? 'es' : '').' = '.$porcentaje_acc.' %</h3><br></br><br></br>';
+$content .= '<h3 style="text-align:center; font-size:18px">'.$tot_asistentes.' asistentes</h3>';
 
 $content .= '</body></html>';
 //echo $content;exit;

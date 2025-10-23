@@ -31,10 +31,13 @@ private $cn;
       $cedula=$accionistas->getCedula();
       $nombre=$accionistas->getNombre();
       $acciones=$accionistas->getAcciones();
+      $email=$accionistas->getemail();
+      $telefono=$accionistas->gettelefono();
+      $direccion=$accionistas->getdireccion();
 
       try {
-          $sql= "INSERT INTO `accionistas`( `cedula`, `nombre`, `acciones`)"
-          ."VALUES ('$cedula','$nombre','$acciones')";
+          $sql= "INSERT INTO `accionistas`( `cedula`, `nombre`, `acciones`, email, telefono, direccion)"
+          ."VALUES ('$cedula','$nombre','$acciones', '$email', '$telefono', '$direccion')";
           return $this->insertarConsulta($sql);
       } catch (SQLException $e) {
           throw new Exception('Primary key is null');
@@ -204,9 +207,12 @@ private $cn;
   public function listAccionistasPoderInvalido($fecha){
     $lista = array();
       try {
-          $sql ="SELECT `cedula`, `nombre`, `acciones`"
-          ."FROM accionistas  WHERE cedula IN (SELECT cedula FROM periodo WHERE fecha ='$fecha' "
-          ."AND valido = '1') AND cedula IN (SELECT cedula FROM registro_voto WHERE fecha = '$fecha')";
+          $sql ="SELECT a.cedula as cedula, a.nombre as nombre, a.acciones as acciones "
+."FROM accionistas a "
+."JOIN registro_voto rv ON a.cedula = rv.cedula "
+."LEFT JOIN periodo p ON a.cedula = p.cedula "
+."GROUP BY a.cedula "
+."HAVING SUM(p.valido = 0) = 0;";
           $data = $this->ejecutarConsulta($sql);
           for ($i=0; $i < count($data) ; $i++) {
               $accionistas= new Accionistas();

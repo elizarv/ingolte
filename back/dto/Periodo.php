@@ -18,6 +18,8 @@ class Periodo {
   private $nombre;
   private $nombre2;
   private $valido;
+  private $observacion;
+  private $fecha_radicado;
 
     /**
      * Constructor de Periodo
@@ -116,6 +118,22 @@ class Periodo {
   public function setvalido($n){
       $this->valido = $n;
   }  
+
+  public function getobservacion(){
+    return $this->observacion;
+}
+
+public function setobservacion($n){
+    $this->observacion = $n;
+}  
+
+public function getfecharadicado(){
+    return $this->fecha_radicado;
+}
+
+public function setfecharadicado($n){
+    $this->fecha_radicado = $n;
+}  
 
 }
 //That´s all folks!

@@ -36,11 +36,12 @@ class PeriodoFacade {
    * @param apellidos
    * @param acciones
    */
-  public static function insert($accionistas,  $representante_cc, $num){
+  public static function insert($accionistas,  $representante_cc, $num, $obs){
       $periodo = new Periodo();
       $periodo->setCedula($accionistas->getCedula());
       $periodo->setRepresentante_cc($representante_cc); 
       $periodo->setnumradicado($num);
+      $periodo->setobservacion($obs);
 
      $FactoryDao=new FactoryDao(self::getGestorDefault());
      $PeriodoDao =$FactoryDao->getPeriodoDao(self::getDataBaseDefault());

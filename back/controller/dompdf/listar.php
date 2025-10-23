@@ -16,7 +16,8 @@ $content .= '<tbody>';
 
 $tot_acc = 0;
 
-foreach ($list as $obj => $accionista) {	
+foreach ($list as $obj => $accionista) {
+	if ($accionista->getacciones() == 0) continue;	
 	$content .= '<tr><td>';
 	$content .= ($accionista->getnombre()).'</td>';
 	$content .= '<td>';

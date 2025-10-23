@@ -14,6 +14,9 @@ class Accionistas {
   private $nombre;
   private $apellidos;
   private $acciones;
+  private $email;
+  private $telefono;
+  private $direccion;
 
     /**
      * Constructor de Accionistas
@@ -79,6 +82,30 @@ class Accionistas {
      */
   public function setAcciones($acciones){
       $this->acciones = $acciones;
+  }
+
+  public function getEmail(){
+    return $this->email;
+  }
+
+  public function setEmail($x){
+      $this->email = $x;
+  }
+
+  public function getTelefono(){
+    return $this->telefono;
+  }
+
+  public function setTelefono($x){
+      $this->telefono = $x;
+  }
+
+  public function getDireccion(){
+    return $this->direccion;
+  }
+
+  public function setDireccion($x){
+      $this->direccion = $x;
   }
 
 

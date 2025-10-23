@@ -16,7 +16,8 @@ foreach ($list as $obj => $Periodo) {
 	    \"ccrepre\":\"{$Periodo->getcedula2()}\",
 	    \"nombre\":\"{$Periodo->getnombre()}\",
 	    \"repre\":\"{$Periodo->getnombre2()}\",
-	    \"num\":\"{$Periodo->getnumradicado()}\"
+	    \"num\":\"{$Periodo->getnumradicado()}\",
+	    \"valido\":\"{$Periodo->getvalido()}\"
 	},";
 }
 if($rta!=""){

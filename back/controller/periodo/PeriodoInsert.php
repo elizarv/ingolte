@@ -13,7 +13,8 @@ $accionistas= new Accionistas();
 $accionistas->setCedula($Accionistas_cedula);
 $representante_cc = $_POST['cc_rep'];
 $num_radicado = $_POST['num_radicado'];
-$rta = PeriodoFacade::insert($accionistas, $representante_cc, $num_radicado);
+$observacion = $_POST['observacion'];
+$rta = PeriodoFacade::insert($accionistas, $representante_cc, $num_radicado, $observacion);
 
 if($rta== "Update"){
 	echo "update";

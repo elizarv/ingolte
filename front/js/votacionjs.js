@@ -21,7 +21,7 @@ function postCargarVotacionPlanchas(result, state){
             str += 'Voto en Blanco</button></a></div></div></div></div></div>';
             document.getElementById("contenedor").innerHTML+=str;
          }else{
-               swal("El representante no se encuentra registrado!\nPor favor registrelo.", {
+               swal("El apoderado no se encuentra registrado!\nPor favor registrelo.", {
                    icon: "error",
                  });
          }
