@@ -780,7 +780,7 @@ function selectAsistencia(result,state){
     if(state=="success"){
         var json=JSON.parse(result);
         if(json[0].msg == "Error"){
-            swal("No se encuentran poderes registrados en esa fecha", {
+            swal("No se encuentran asistentes registrados en esa fecha", {
                            icon: "error",
                          });                    
         }else{
