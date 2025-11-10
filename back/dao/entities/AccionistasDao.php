@@ -54,7 +54,7 @@ private $cn;
       $cedula=$accionistas->getCedula();
 
       try {
-          $sql= "SELECT `cedula`, `nombre`, `acciones`"
+          $sql= "SELECT `cedula`, `nombre`, `acciones`, `folio`"
           ."FROM `accionistas`"
           ."WHERE `cedula`='$cedula'";
           $data = $this->ejecutarConsulta($sql);
@@ -63,6 +63,7 @@ private $cn;
           $accionistas->setCedula($data[$i]['cedula']);
           $accionistas->setNombre($data[$i]['nombre']);
           $accionistas->setAcciones($data[$i]['acciones']);
+          $accionistas->setFolio($data[$i]['folio']);
 
           }
       return $accionistas;     
@@ -76,7 +77,7 @@ private $cn;
       $cedula=$accionistas->getCedula();
 
       try {
-          $sql= "SELECT `cedula`, `nombre`, `acciones`"
+          $sql= "SELECT `cedula`, `nombre`, `acciones`, `folio`"
           ."FROM `accionistas`"
           ."WHERE `cedula`='$cedula'";
           $data = $this->ejecutarConsulta($sql);
@@ -84,6 +85,7 @@ private $cn;
           $accionistas->setCedula($data[$i]['cedula']);
           $accionistas->setNombre($data[$i]['nombre']);
           $accionistas->setAcciones($data[$i]['acciones']);
+          $accionistas->setFolio($data[$i]['folio']);
 
           }
       return $accionistas;     

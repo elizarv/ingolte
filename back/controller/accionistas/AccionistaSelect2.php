@@ -15,7 +15,8 @@ $rta="";
 	$rta.="{
  	    \"cedula\":\"{$Accionista->getcedula()}\",
 	    \"nombre\":\"{$Accionista->getnombre()}\",
-	    \"acciones\":\"{$Accionista->getacciones()}\"
+	    \"acciones\":\"{$Accionista->getacciones()}\",
+	    \"folio\":\"{$Accionista->getfolio()}\"
 	},";
 
 

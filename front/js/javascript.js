@@ -1,4 +1,4 @@
-var nombre_rep, cedula_rep, nombre_acc, cedula_acc, acciones_acc, acciones, observacion = "";
+var nombre_rep, cedula_rep, nombre_acc, cedula_acc, acciones_acc, acciones, folio, observacion = "";
 
 var accionistas_list = new Object();
 var accionistas_table = "";
@@ -597,6 +597,7 @@ function preSelectAccionista2(idForm){
                 cedula_acc = accionista.cedula;
                 nombre_acc = accionista.nombre;
                 acciones_acc = accionista.acciones;
+                folio = accionista.folio;
                 cargarSelectAccionistaFin();
             }else{
                 observacion= "Anulado por N° de identificación no se encuentra registrado.";
@@ -615,7 +616,7 @@ function cargarSelectAccionistaFin(){
         document.getElementById("seccname").innerHTML='<h2 class="no-margin-bottom">Registrar Poder</h2>';
     swal({
       title: 'Poderdante',
-      text: 'Nombre: '+nombre_acc+'\nCedula: '+cedula_acc+'\nAcciones: '+acciones_acc,
+      text: 'Nombre: '+nombre_acc+'\nCedula: '+cedula_acc+'\nAcciones: '+acciones_acc+'\nFolio: '+folio,
       icon: 'warning',
       buttons: {
         cancel: {
@@ -665,7 +666,8 @@ function cargarDatosFin(){
     str += '<h4>Poderdante:</h4>';
     str += '<h5 class="h5">Nombre: '+nombre_acc+'</h5>';
     str += '<h5 class="h5">CC: '+cedula_acc+'</h5>';
-    str += '<h5 class="h5">Número de acciones: '+acciones_acc+'</h5><br>';
+    str += '<h5 class="h5">Número de acciones: '+acciones_acc+'</h5>';
+    str += '<h5 class="h5">Folio: '+folio+'</h5><br>';
     if (observacion != "") str += '<h5 class="h5" style="color:red">Error: '+observacion+'</h5><br>';
     document.getElementById("datos").innerHTML = str;
     var str ='<input type="hidden" id="cc_rep" name="cc_rep" value="'+cedula_rep+'">';

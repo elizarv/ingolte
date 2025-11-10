@@ -17,6 +17,7 @@ class Accionistas {
   private $email;
   private $telefono;
   private $direccion;
+  private $folio;
 
     /**
      * Constructor de Accionistas
@@ -107,6 +108,15 @@ class Accionistas {
   public function setDireccion($x){
       $this->direccion = $x;
   }
+
+  public function getFolio(){
+    return $this->folio;
+  }
+
+  public function setFolio($x){
+      $this->folio = $x;
+  }
+
 
 
 }

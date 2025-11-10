@@ -4,8 +4,11 @@ JOIN (
     SELECT DISTINCT representante_cc
     FROM periodo
     WHERE representante_cc IS NOT NULL
-) r ON p.cedula = r.representante_cc and 
-SET p.valido = 1, observacion='Anulado por tener poderes a su nombre.'
+) r ON p.cedula = r.representante_cc
+SET 
+    p.valido = 1,
+    p.observacion = 'Anulado por tener poderes a su nombre.';
+
 
 
     // validar duplicidad
@@ -18,7 +21,6 @@ SET p.valido = 1, observacion='Anulado por tener poderes a su nombre.'
       );
     
 // EXCEL DE RELACION DE PODERES
-
 SELECT 
     p.fecha_registro as "FECHA DE REGISTRO",
 
@@ -55,7 +57,9 @@ FROM
 JOIN accionistas a1 ON p.cedula = a1.cedula
 JOIN accionistas a2 ON p.representante_cc = a2.cedula
 
-ORDER BY a2.cedula;
+where p.num_radicado > 3
+
+ORDER BY a2.cedula, radicado;
 
 // EXCEL CONVOCATORIA TOTAL
 SELECT 
